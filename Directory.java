@@ -46,16 +46,17 @@ public class Directory{
 
         if(check){
              System.err.print("\nLogging In...\n\n");
-            test(stringid);
+            test(stringid, id);
         }else{
             System.err.println("ID Not Recognized");
         
     }
   }
 
-  public void test(String fileName){
+  public void test(String fileName, int tid){
       Teach teacher = new Teach();
       String newName = "Class/" + fileName;
+      String t_id = Integer.toString(tid);
       File _file = new File(newName);
       List <String> list = new ArrayList<String>();
       if(file.exists()){
@@ -73,6 +74,7 @@ public class Directory{
 
       for(String line: list){
           String res[] = line.split("\\s+");
+          if(res[0].contains(t_id)){
           int id = Integer.parseInt(res[0]);
           teacher.setID(id);
           teacher.setFirst(res[1]);
@@ -83,6 +85,8 @@ public class Directory{
           }else{
               teacher.setGender(false);
           }
+          break;
+        }
       }
 
       menu.menu(teacher);
