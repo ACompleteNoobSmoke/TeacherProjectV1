@@ -12,12 +12,29 @@ import java.util.List;
 public class Directory{
     static File file = new File("Class");
     static Menu menu = new Menu();
+
+    public void createFolder(){
+        file.mkdir();
+    }
     
     
     public void createFile(Teach teacher) throws IOException{
         String fileName = "Class/" + teacher.getID() + ".txt";
-        try{
+       /*  String stringid = teacher.getID + ".txt";
+        boolean check = false;
+        File[] listoFiles = file.listFiles();
         
+        for(File f: listoFiles){
+            if(f.getName().equals(stringid)){
+                 check = true;
+            }
+        }
+
+        if(check){
+            System.out.println(x);
+        }
+         */
+        try{
         File newFile = new File(fileName);
         file.mkdir();
         newFile.createNewFile();
@@ -95,7 +112,7 @@ public class Directory{
   public void enterNames(int id){
       String fileName = "Class/" + Integer.toString(id) + ".txt";
       BufferedWriter buff = null;
-      String info = 9111 + " " + "African" + " " + "King" + " " + "GOD";
+      String info = "\n" + 9111 + " " + "African" + " " + "King" + " " + "GOD";
 
       System.out.println(info);
      

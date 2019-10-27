@@ -17,8 +17,9 @@ public class Menu{
     
 
     //Main Menu Page
-    public static void mainmenu(){
+    public void mainmenu(){
         boolean repeat = true;
+        direct.createFolder();
 
         int i = 0;
         while(repeat){
@@ -45,7 +46,7 @@ public class Menu{
     }
 
     //Switch case of options
-    public static void choice(int i){
+    public  void choice(int i){
         switch(i){
             case 1: 
             regTeacher();
@@ -63,7 +64,7 @@ public class Menu{
     }
 
     // Method to register new teachers
-    public static void regTeacher() {
+    public void regTeacher() {
         boolean sec = false;
         boolean gen2 = false;
         String first = "";
@@ -195,7 +196,4 @@ public class Menu{
         direct.searchFiles(teacher.getID());
     }
 
-    public static void main(String[] args) {
-        mainmenu();   
-    }
 }
