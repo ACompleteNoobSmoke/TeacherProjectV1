@@ -17,26 +17,30 @@ public class Directory{
         file.mkdir();
     }
     
+    public boolean searchID(String fileID){
+         boolean check = false;
+         File[] listoFiles = file.listFiles();
+         
+         for(File f: listoFiles){
+             if(f.getName().equals(fileID)){
+                  check = true;
+             }
+         }
+ 
+         if(check){
+             System.err.println("\n!!ID NUMBER ALREADY EXISTS!!\n");
+             return false;
+         }else{
+             return true;
+         }
+          
+    }
     
     public void createFile(Teach teacher) throws IOException{
         String fileName = "Class/" + teacher.getID() + ".txt";
-       /*  String stringid = teacher.getID + ".txt";
-        boolean check = false;
-        File[] listoFiles = file.listFiles();
-        
-        for(File f: listoFiles){
-            if(f.getName().equals(stringid)){
-                 check = true;
-            }
-        }
-
-        if(check){
-            System.out.println(x);
-        }
-         */
+    
         try{
         File newFile = new File(fileName);
-        file.mkdir();
         newFile.createNewFile();
         }catch(IOException e){
             System.out.println("File Not Created");

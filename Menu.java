@@ -72,6 +72,7 @@ public class Menu{
         char gen;
         int id = 0;
         String id2 = "";
+        boolean check = false;
 
         System.out.println("\n\n****Teacher Registration****\n");
         while (first.equals("")) {
@@ -97,13 +98,18 @@ public class Menu{
             }
         }
 
-        while (id2.length()< 4 || id2.length() > 4) {
+        while ((id2.length()< 4 || id2.length() > 4) || check == false) {
             System.out.println("**(Note: First Digit Has To Be Greater Than 0**)");
             System.out.print("Please Enter ID Number(####): ");
             id = scan.nextInt();
             scan.nextLine();
             id2 = Integer.toString(id);
-            System.out.println(id2);
+            if(id2.length() == 4){
+            String fileSearch = id2 + ".txt";
+             check = direct.searchID(fileSearch);
+            }
+
+            
         }
 
         int a = 0;
