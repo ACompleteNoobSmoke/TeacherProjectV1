@@ -1,0 +1,16 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Menu",
+            "request": "launch",
+            "mainClass": "Menu"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Course",
+            "request": "launch",
+            "mainClass": "Course"
+        }
+    ]
+}
