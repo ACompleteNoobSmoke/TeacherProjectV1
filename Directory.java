@@ -98,7 +98,7 @@ public class Directory{
       try{
           buff = new BufferedWriter(new FileWriter(new File(fileName), true));
           buff.write(info);
-          System.out.println("I EAT ASS");
+          System.out.println("It worked");
           buff.close();
       }catch(FileNotFoundException e){
           System.out.println(" FILE DOES NOT EXIST");
