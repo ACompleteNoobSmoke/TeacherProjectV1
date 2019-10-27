@@ -5,35 +5,30 @@ public class Student {
 
     static Scanner scan = new Scanner(System.in);
 
-    String fname;
-    String lname;
-    int id;
-    String dob;
-    int age;
-    String year;
-    char gender;
-    String gender2;
-    boolean status;
-    String status2;
-    String hobby;
+    private String fname;
+    private String lname;
+    private int id;
+    private String dob;
+    private int age;
+    private String year;
+    private String gender;
+    private String status;
+    private String hobby;
+
+    public Student(String sf_name, String sl_name, int s_id, String s_dob, int s_age,
+    String s_year, String s_gender, String s_status, String s_hobby){
+        this.fname = sf_name;
+        this.lname = sl_name;
+        this.id = s_id;
+        this.dob = s_dob;
+        this.age = s_age;
+        this.year = s_year;
+        this.gender = s_gender;
+        this.status = s_status;
+        this.hobby = s_hobby;
+    }
 
     
-
-    public Student(String first, String last, int s_id, String birth, int s_age, 
-    String grade, char gen, String gen2, boolean stats, String stats2, String hobs){
-
-        fname = first;  
-        lname = last;
-        id = s_id;
-        dob = birth;
-        age = s_age;
-        year = grade;
-        gender = gen;
-        gender2 = gen2;
-        status = stats;
-        status2 = stats2;
-        hobby = hobs;
-    }
 
     static ArrayList <Student> stud = new ArrayList<Student>();
 
@@ -43,9 +38,9 @@ public class Student {
                 "Student #ID: " + id + "\n" +
                 "DOB: " + dob + "\n" +
                 "Age: " + age + "\n" +
-                "Gender: " + gender2 + "\n" +
+                "Gender: " + gender + "\n" +
                 "Grade: " + year + "\n" +
-                "Status: " +  status2 + "\n" +
+                "Status: " +  status + "\n" +
                 "Hobby: " + hobby + "\n" +
                 "***************************\n\n";
     }
@@ -54,35 +49,83 @@ public class Student {
         return id + " " + fname  + " " + lname + " " + year + " " + status2 + "\n";
     }
 
+        public static void studentInfo(){
+    
+            Teach teacher = new Teach();
+            teacher.setFirst("Uyi"); teacher.setLast("Omo");
+            String sf_name = "";
+            String sl_name = "";
+            int s_id = 0;
+            String s_id2 = "";
+            String s_dob = "";
+            int s_age = 0;
+            String s_year = "";
+            String s_gender = "";
+            String s_status = "";
+            String s_hobby = "";
 
-    public static void main(String[] args){
-        Student student = null;
-       System.out.print("\nEnter Number Of Students: "); int num = scan.nextInt(); scan.nextLine();
-       for(int i = 0;  i < num; i++){
-        System.out.print("Enter First Name: "); String fname = scan.nextLine();
-        System.out.print("Enter Last Name: "); String lname = scan.nextLine();
-        System.out.print("Enter Student ID#(####): "); int id = scan.nextInt(); scan.nextLine();
-        System.out.print("Enter Date Of Birth(mm/dd/yyyy): "); String dob = scan.nextLine();
-        System.out.print("Enter Age: "); int age = scan.nextInt(); scan.nextLine();
-        System.out.print("Enter School Year: "); String year = scan.nextLine();
-        System.out.print("Enter Gender(M/F): "); char gen = scan.next().charAt(0); scan.nextLine();
-        String gen2=  (gen == 'M' || gen == 'm')? "Male" : "Female";
-        System.out.print("Enter Status(Pass/Fail): "); String stats2 = scan.nextLine();
-        boolean stats = (stats2 == "Pass") ? true: false;
-        System.out.print("Enter Student's Hobby: "); String hobby = scan.nextLine(); System.out.println("\n");
-        
-        student = new Student(fname, lname, id, dob, age, year, gen, gen2, stats, stats2, hobby);
-        stud.add(student);
+            System.out.println("***Enter Student Information***\n");
+            System.out.println("Professor Name: " + teacher.getFirst().concat(" " + teacher.getLast()));
+            System.out.println("ID#: " + teacher.getID() + "\n");
+            
+            while(sf_name.equals("")){
+                System.out.print("Enter Student First Name: ");
+                sf_name = scan.nextLine();
+            }
 
-       }
+            while(sl_name.equals("")){
+                System.out.print("Enter Student Last Name: ");
+                sl_name = scan.nextLine();
+            }
 
-      for(Student tu : stud){
-        System.out.println(tu);
+            while(s_id2.length() < 4 || s_id2.length() > 4){
+                System.out.println("(Please ID# Should Start With Number Greater Than 0\n");
+                System.out.print("Enter Student ID#: "); s_id = scan.nextInt(); scan.nextLine();
+                s_id2 = Integer.toString(s_id);
+            }
+
+            while(s_dob == "" ){
+                System.out.print("Enter Student DOB(dd/mm/yyyy): "); s_dob = scan.nextLine();
+            }
+
+            while(s_age <= 0){
+                System.out.print("Enter Student Age: "); 
+                s_age = scan.nextInt(); scan.nextLine();
+            }
+
+            while(!s_gender.startsWith("M") && !s_gender.startsWith("F")){
+                System.out.print("Enter Student Gender(M/F): "); s_gender = scan.nextLine();
+                s_gender = s_gender.toUpperCase();
+                
+            }
+
+            while((!s_year.equalsIgnoreCase("Freshman")&& !s_year.equalsIgnoreCase("Sophomore")) &&
+            (!s_year.equalsIgnoreCase("Junior") && !s_year.equalsIgnoreCase("Senior")) && !s_year.equalsIgnoreCase("Graduate")){
+                System.out.println("(School Year Options: Freshman, Sophomore, Junior, Senior & Graduate)\n");
+                System.out.print("Enter Student Year: "); s_year = scan.nextLine();
+            }
+
+            while(!s_status.equalsIgnoreCase("Pass") && !s_status.equalsIgnoreCase("Fail")){
+                System.out.print("Enter Student Status(Pass/Fail): "); s_status = scan.nextLine();
+            }
+
+            while(s_hobby.equals("") || s_hobby.length()>140){
+                System.out.print("Enter Student Hobby: "); s_hobby = scan.nextLine();
+                
+            }
+
+            Student student = new  Student(sf_name, sl_name, s_id, s_dob, s_age, 
+            s_year, s_gender, s_status, s_hobby);
+
+            System.out.println(student.toString());
 
       }
+
+      public static void main(String[] args) {
+         studentInfo();
+      }
+      
           
       
     }
 
-
-}

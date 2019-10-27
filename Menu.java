@@ -107,9 +107,7 @@ public class Menu{
             if(id2.length() == 4){
             String fileSearch = id2 + ".txt";
              check = direct.searchID(fileSearch);
-            }
-
-            
+            }            
         }
 
         int a = 0;

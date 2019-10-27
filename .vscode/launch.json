@@ -2,6 +2,12 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Student",
+            "request": "launch",
+            "mainClass": "Student"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Menu",
             "request": "launch",
             "mainClass": "Menu"
