@@ -14,6 +14,7 @@ public class Menu{
     static Directory direct = new Directory();
     static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
     static Date date = new Date();
+   
     
 
     //Main Menu Page
@@ -184,10 +185,91 @@ public class Menu{
 
     public void teacherPath(int n, Teach teacher){
         switch(n){
-            case 1: direct.enterNames(teacher.getID()); break;
+            case 1: direct.enterNames(teacher, studentInfo(teacher)); break;
         }
 
     }
+
+    public Student studentInfo(Teach teacher){
+    
+        String sf_name = "";
+        String sl_name = "";
+        int s_id = 0;
+        String s_id2 = "";
+        String s_dob = "";
+        int s_age = 0;
+        String s_year = "";
+        String s_gender = "";
+        String s_status = "";
+        String s_hobby = "";
+
+        System.out.println("***Enter Student Information***\n");
+        System.out.println("Professor Name: " + teacher.getFirst().concat(" " + teacher.getLast()));
+        System.out.println("ID#: " + teacher.getID() + "\n");
+        
+        while(sf_name.equals("")){
+            System.out.print("Enter Student First Name: ");
+            sf_name = scan.nextLine();
+        }
+
+        while(sl_name.equals("")){
+            System.out.print("Enter Student Last Name: ");
+            sl_name = scan.nextLine();
+        }
+
+        while(s_id2.length() < 4 || s_id2.length() > 4){
+            System.out.println("(Please ID# Should Start With Number Greater Than 0\n");
+            System.out.print("Enter Student ID#: "); s_id = scan.nextInt(); scan.nextLine();
+            s_id2 = Integer.toString(s_id);
+        }
+
+        while(s_dob == "" ){
+            System.out.print("Enter Student DOB(dd/mm/yyyy): "); s_dob = scan.nextLine();
+        }
+
+        while(s_age <= 0){
+            System.out.print("Enter Student Age: "); 
+            s_age = scan.nextInt(); scan.nextLine();
+        }
+
+        while(!s_gender.startsWith("M") && !s_gender.startsWith("F")){
+            System.out.print("Enter Student Gender(M/F): "); s_gender = scan.nextLine();
+            s_gender = s_gender.toUpperCase();
+            
+        }
+
+        while((!s_year.equalsIgnoreCase("Freshman")&& !s_year.equalsIgnoreCase("Sophomore")) &&
+        (!s_year.equalsIgnoreCase("Junior") && !s_year.equalsIgnoreCase("Senior")) && !s_year.equalsIgnoreCase("Graduate")){
+            System.out.println("(School Year Options: Freshman, Sophomore, Junior, Senior & Graduate)\n");
+            System.out.print("Enter Student Year: "); s_year = scan.nextLine();
+        }
+
+        while(!s_status.equalsIgnoreCase("Pass") && !s_status.equalsIgnoreCase("Fail")){
+            System.out.print("Enter Student Status(Pass/Fail): "); s_status = scan.nextLine();
+        }
+
+        while(s_hobby.equals("") || s_hobby.length()>140){
+            System.out.print("Enter Student Hobby: "); s_hobby = scan.nextLine();
+            
+        }
+        int op = 0;
+        while(op != 1 && op != 2){
+        System.out.print("\n\nOptions:\n1. Save  " + sf_name + " Information\n2.Cancel\n\nAction"); op = scan.nextInt(); scan.nextLine();
+        }
+        
+        if(op == 1){
+        Student student = new  Student(sf_name, sl_name, s_id, s_dob, s_age, 
+        s_year, s_gender, s_status, s_hobby);
+        return student;
+        }else{
+            Menu menu = new Menu();
+            menu.menu(teacher);
+            return null;
+        }
+        
+
+  }
+
 
     public void message(Teach teacher){
         System.out.println("\n       **A MESSAGE FROM PRINCIPAL LIL B THE BASEDGOD**\n");

@@ -12,6 +12,7 @@ import java.util.List;
 public class Directory{
     static File file = new File("Class");
     static Menu menu = new Menu();
+    static Student stu = null;
 
     public void createFolder(){
         file.mkdir();
@@ -113,10 +114,12 @@ public class Directory{
       menu.menu(teacher);
   }
 
-  public void enterNames(int id){
-      String fileName = "Class/" + Integer.toString(id) + ".txt";
+  public void enterNames(Teach teacher, Student stu2){
+      String fileName = "Class/" + Integer.toString(teacher.getID()) + ".txt";
       BufferedWriter buff = null;
-      String info = "\n" + 9111 + " " + "African" + " " + "King" + " " + "GOD";
+      
+      String info = "\n" + stu2.id + " " + stu2.fname + " " + stu2.lname + " " + stu2.dob
+        + " " + stu2.age + " " + stu2.gender + " " + stu2.year + " " + stu2.status + " " + stu2.hobby  + "\n";
 
       System.out.println(info);
      
