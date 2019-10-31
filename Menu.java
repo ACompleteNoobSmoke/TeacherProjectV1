@@ -185,9 +185,12 @@ public class Menu{
 
     public void teacherPath(int n, Teach teacher){
         switch(n){
-            case 1: direct.enterNames(teacher, studentInfo(teacher)); break;
-        }
+            case 1: System.out.println("\n\n");
+            direct.enterNames(teacher, studentInfo(teacher)); break;
 
+            case 2: System.out.println("\n\n");
+            System.out.println(direct.searchStudent(teacher.getID(), studentid())); break;
+        }
     }
 
     public Student studentInfo(Teach teacher){
@@ -254,7 +257,7 @@ public class Menu{
         }
         int op = 0;
         while(op != 1 && op != 2){
-        System.out.print("\n\nOptions:\n1. Save  " + sf_name + " Information\n2.Cancel\n\nAction"); op = scan.nextInt(); scan.nextLine();
+        System.out.print("\n\nOptions:\n1. Save  " + sf_name + " Information\n2. Cancel\n\nAction: "); op = scan.nextInt(); scan.nextLine();
         }
         
         if(op == 1){
@@ -270,6 +273,16 @@ public class Menu{
 
   }
 
+    public int studentid(){
+        int idnum = 0;
+        String idstr = "";
+        System.out.println("\n***Search Student***");
+        while(idstr.length() < 4 || idstr.length() > 4){
+        System.out.print("\nEnter ID Number: "); idnum = scan.nextInt(); scan.nextLine();
+        idstr = Integer.toString(idnum);
+        }
+        return idnum;
+    }
 
     public void message(Teach teacher){
         System.out.println("\n       **A MESSAGE FROM PRINCIPAL LIL B THE BASEDGOD**\n");

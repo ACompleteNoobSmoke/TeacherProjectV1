@@ -12,7 +12,7 @@ import java.util.List;
 public class Directory{
     static File file = new File("Class");
     static Menu menu = new Menu();
-    static Student stu = null;
+    static ArrayList<Student> stu = new ArrayList<Student>();
 
     public void createFolder(){
         file.mkdir();
@@ -121,17 +121,60 @@ public class Directory{
       String info = "\n" + stu2.id + " " + stu2.fname + " " + stu2.lname + " " + stu2.dob
         + " " + stu2.age + " " + stu2.gender + " " + stu2.year + " " + stu2.status + " " + stu2.hobby  + "\n";
 
-      System.out.println(info);
-     
+
       try{
           buff = new BufferedWriter(new FileWriter(new File(fileName), true));
           buff.write(info);
-          System.out.println("It worked");
+          System.out.println(stu2.fname +"'s Information Has Been Stored Into The Database!\n");
           buff.close();
       }catch(FileNotFoundException e){
           System.out.println(" FILE DOES NOT EXIST");
       }catch(IOException e){
         e.printStackTrace();
       }
+  }
+
+  public String searchStudent(int tid, int sid ){
+    Student stud = null;
+    String newName = "Class/" + Integer.toString(tid) + ".txt";
+    String s_id = Integer.toString(sid);
+    File _file = new File(newName);
+    List <String> list = new ArrayList<String>();
+    if(file.exists()){
+        try{
+
+          list = Files.readAllLines(_file.toPath(), Charset.defaultCharset());
+
+        }catch(IOException e){
+          e.printStackTrace();
+        }
+        if(list.isEmpty()){
+            return "ERROR!";
+        }
+    }
+
+    for(String line: list){
+        String res[] = line.split("\\s+");
+        String gen = "";
+        if(res[0].equals(s_id)){
+        int id = Integer.parseInt(res[0]);
+        int age = Integer.parseInt(res[4]);
+        
+        if(res[5].startsWith("M") || res[5].startsWith("m"))
+        {
+            gen = "Male";
+        }else{
+            gen = "Female";
+        }
+        
+        stud = new Student(res[1], res[2], id, res[3], age, res[6], gen, res[7], res[8]);
+        break;
+      }else if(!res[0].equals(s_id)){
+        return "STUDENT DOES NOT EXIST";
+      }
+    }
+
+    return stud.toString();
+
   }
 }

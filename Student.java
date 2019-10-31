@@ -31,7 +31,6 @@ public class Student {
 
     
 
-    static ArrayList <Student> stud = new ArrayList<Student>();
 
     public String toString(){
         return "First Name: " + fname + "\n" +
