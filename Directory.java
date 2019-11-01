@@ -140,6 +140,7 @@ public class Directory{
     String s_id = Integer.toString(sid);
     File _file = new File(newName);
     List <String> list = new ArrayList<String>();
+    boolean exist = false;
     if(file.exists()){
         try{
 
@@ -168,13 +169,16 @@ public class Directory{
         }
         
         stud = new Student(res[1], res[2], id, res[3], age, res[6], gen, res[7], res[8]);
+        exist = true;
         break;
-      }else if(!res[0].equals(s_id)){
-        return "STUDENT DOES NOT EXIST";
       }
     }
 
+    if(exist){
     return stud.toString();
+    }else{
+      return "STUDENT INFORMATION DOES NOT EXIST!";
+    }
 
   }
 }

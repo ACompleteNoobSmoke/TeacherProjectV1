@@ -169,12 +169,12 @@ public class Menu{
 
     public void menu(Teach teacher){
          int a = 0;
-        while(a <1 || a > 4){
+        while(a <1 || a > 5){
         try{
         System.out.println("*****Professor Menu*****\n");
         System.out.println(teacher.getFirst() + " " + teacher.getLast());
         System.out.println("ID#: " + teacher.getID() + "\n");
-        System.out.print("1. Enter Student\n2. Search Student\n3. Remove Student\n4. List All Student\n\nAction: "); a = scan.nextInt(); scan.nextLine();
+        System.out.print("1. Enter Student\n2. Search Student\n3. Remove Student\n4. List All Student\n5. Sign Out\n\nAction: "); a = scan.nextInt(); scan.nextLine();
         }catch(InputMismatchException e){
             scan.nextLine(); menu(teacher);
         }
@@ -186,10 +186,17 @@ public class Menu{
     public void teacherPath(int n, Teach teacher){
         switch(n){
             case 1: System.out.println("\n\n");
-            direct.enterNames(teacher, studentInfo(teacher)); break;
+            direct.enterNames(teacher, studentInfo(teacher)); menu(teacher); break;
 
             case 2: System.out.println("\n\n");
-            System.out.println(direct.searchStudent(teacher.getID(), studentid())); break;
+            System.out.println(direct.searchStudent(teacher.getID(), studentid()));
+            System.out.println("\nPress Anything To Exit\n"); scan.nextLine(); menu(teacher);
+             break;
+
+             case 5: System.out.println("\nGoodbye " + (teacher.getGenderString().equalsIgnoreCase("Male") ? "Mr. " : "Mrs. ") + teacher.getLast() + "\n");
+                     mainmenu(); break;
+            
+            default: System.out.println("\nAction Not Recognized\n"); menu(teacher);
         }
     }
 
@@ -257,7 +264,7 @@ public class Menu{
         }
         int op = 0;
         while(op != 1 && op != 2){
-        System.out.print("\n\nOptions:\n1. Save  " + sf_name + " Information\n2. Cancel\n\nAction: "); op = scan.nextInt(); scan.nextLine();
+        System.out.print("\n\nOptions:\n1. Save " + sf_name + " Information\n2. Cancel\n\nAction: "); op = scan.nextInt(); scan.nextLine();
         }
         
         if(op == 1){
