@@ -189,7 +189,7 @@ public class Menu{
             direct.enterNames(teacher, studentInfo(teacher)); menu(teacher); break;
 
             case 2: System.out.println("\n\n");
-            System.out.println(direct.searchStudent(teacher.getID(), studentid()));
+            System.out.println(direct.searchStudent(teacher.getID(), studentid(teacher.getID())));
             System.out.println("\nPress Anything To Exit\n"); scan.nextLine(); menu(teacher);
              break;
 
@@ -212,6 +212,7 @@ public class Menu{
         String s_gender = "";
         String s_status = "";
         String s_hobby = "";
+        boolean check = false;
 
         System.out.println("***Enter Student Information***\n");
         System.out.println("Professor Name: " + teacher.getFirst().concat(" " + teacher.getLast()));
@@ -227,10 +228,11 @@ public class Menu{
             sl_name = scan.nextLine();
         }
 
-        while(s_id2.length() < 4 || s_id2.length() > 4){
+        while((s_id2.length() < 4 || s_id2.length() > 4) || !check){
             System.out.println("(Please ID# Should Start With Number Greater Than 0\n");
             System.out.print("Enter Student ID#: "); s_id = scan.nextInt(); scan.nextLine();
             s_id2 = Integer.toString(s_id);
+            check = direct.searchStuID(teacher.getID(), s_id);
         }
 
         while(s_dob == "" ){
@@ -280,16 +282,31 @@ public class Menu{
 
   }
 
-    public int studentid(){
+    public int studentid(int t_id){
         int idnum = 0;
         String idstr = "";
+        boolean check = false;
+        try{
         System.out.println("\n***Search Student***");
-        while(idstr.length() < 4 || idstr.length() > 4){
+        while((idstr.length() < 4 || idstr.length() > 4) || !check){
         System.out.print("\nEnter ID Number: "); idnum = scan.nextInt(); scan.nextLine();
+        if(idnum == t_id){
+            System.out.println("Professor ID Currently In Usage\n");
+        }else{
+            check = true;
+        }
         idstr = Integer.toString(idnum);
         }
-        return idnum;
+      
+      
+    }catch(InputMismatchException e){
+        scan.nextLine();
+        check = false;
+        studentid(t_id);
     }
+    return idnum;
+        }
+    
 
     public void message(Teach teacher){
         System.out.println("\n       **A MESSAGE FROM PRINCIPAL LIL B THE BASEDGOD**\n");

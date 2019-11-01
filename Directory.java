@@ -119,7 +119,7 @@ public class Directory{
       BufferedWriter buff = null;
       
       String info = "\n" + stu2.id + " " + stu2.fname + " " + stu2.lname + " " + stu2.dob
-        + " " + stu2.age + " " + stu2.gender + " " + stu2.year + " " + stu2.status + " " + stu2.hobby  + "\n";
+        + " " + stu2.age + " " + stu2.gender + " " + stu2.year + " " + stu2.status + " " + stu2.hobby;
 
 
       try{
@@ -133,6 +133,43 @@ public class Directory{
         e.printStackTrace();
       }
   }
+
+  public boolean searchStuID(int tid, int sid ){
+    String newName = "Class/" + Integer.toString(tid) + ".txt";
+    String s_id = Integer.toString(sid);
+    File _file = new File(newName);
+    List <String> list = new ArrayList<String>();
+    boolean exist = false;
+    if(file.exists()){
+        try{
+
+          list = Files.readAllLines(_file.toPath(), Charset.defaultCharset());
+
+        }catch(IOException e){
+          e.printStackTrace();
+        }
+        if(list.isEmpty()){
+            return false;
+        }
+    }
+
+    for(String line: list){
+        String res[] = line.split("\\s+");
+        if(res[0].equals(s_id)){
+        exist = true;
+        break;
+      }
+    }
+
+    if(exist){
+    System.err.println("\nStudent ID In Use!");
+    return false;
+    }else{
+      return true;
+    }
+
+  }
+
 
   public String searchStudent(int tid, int sid ){
     Student stud = null;
