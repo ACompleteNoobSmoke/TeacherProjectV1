@@ -3,6 +3,7 @@ import java.sql.Time;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Menu{
@@ -14,8 +15,16 @@ public class Menu{
     static Directory direct = new Directory();
     static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
     static Date date = new Date();
-   
     
+   
+    //Clear The Screen
+    public static void clearScreen() {  
+        try{
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } catch(Exception E){
+            System.out.println(E);
+        }
+     }  
 
     //Main Menu Page
     public void mainmenu(){
@@ -166,9 +175,20 @@ public class Menu{
         direct.searchFiles(id);
     }
 
+    
+
 
     public void menu(Teach teacher){
          int a = 0;
+         ArrayList<Student> wholeClass = direct.getWholeClass(teacher.getID());
+         if(wholeClass.isEmpty()){
+             System.out.println("Empty");
+         }else{
+            for(Student p : wholeClass){
+                System.out.println(p.printAll());
+            }
+         }
+        
         while(a <1 || a > 5){
         try{
         System.out.println("*****Professor Menu*****\n");
@@ -191,7 +211,28 @@ public class Menu{
             case 2: System.out.println("\n\n");
             System.out.println(direct.searchStudent(teacher.getID(), studentid(teacher.getID())));
             System.out.println("\nPress Anything To Exit\n"); scan.nextLine(); menu(teacher);
-             break;
+            break;
+
+            case 3: int choice = 0;
+            System.out.println("\n\n");
+            String check = direct.searchStudent(teacher.getID(), studentid(teacher.getID()));
+            System.out.println(check);
+            if(check.equals("STUDENT INFORMATION DOES NOT EXIST!")){
+                clearScreen();
+                menu(teacher);
+                
+                }
+            while(choice != 1 && choice != 2){
+            System.out.print("\n**Option**\n1. Delete Student Information\n2. Cancel\n\nAction: ");
+            choice = scan.nextInt(); scan.nextLine();
+                if(choice == 1){
+
+                }else if(choice == 2){
+                    menu(teacher);
+                    break;
+                 }
+             }
+            break;
 
              case 5: System.out.println("\nGoodbye " + (teacher.getGenderString().equalsIgnoreCase("Male") ? "Mr. " : "Mrs. ") + teacher.getLast() + "\n");
                      mainmenu(); break;

@@ -41,11 +41,11 @@ public class Student {
                 "Gender: " + gender + "\n" +
                 "Grade: " + year + "\n" +
                 "Status: " +  status + "\n" +
-                "Hobby: " + hobby;
+                "Hobby: " + hobby + "\n";
     }
 
     public String printAll(){
-        return id + " " + fname  + " " + lname + " " + year + " " + status2 + "\n";
+        return id + " " + fname  + " " + lname + " " + year + " " + status;
     }
 
         

@@ -12,11 +12,63 @@ import java.util.List;
 public class Directory{
     static File file = new File("Class");
     static Menu menu = new Menu();
-    static ArrayList<Student> stu = new ArrayList<Student>();
+    static ArrayList<Student> studentsinclass = new ArrayList<Student>();
 
     public void createFolder(){
         file.mkdir();
     }
+
+    public ArrayList<Student> getWholeClass(int tid){
+      Student stud = null;
+    String newName = "Class/" + Integer.toString(tid) + ".txt";
+    File _file = new File(newName);
+    List <String> list = new ArrayList<String>();
+     
+    if(file.exists()){
+        try{
+
+          list = Files.readAllLines(_file.toPath(), Charset.defaultCharset());
+
+        }catch(IOException e){
+          e.printStackTrace();
+        }
+        if(list.isEmpty()){
+            return null;
+        }
+    }
+
+    for(String line: list){
+        String res[] = line.split("\\s+");
+        String gen = "";
+        if(!res[0].equals(Integer.toString(tid) ) && !res[0].equals("")){
+        int id = Integer.parseInt(res[0]);
+        String f_name = res[1];
+        String l_name = res[2];
+        String dob = res[3];
+        int age = Integer.parseInt(res[4]);
+        
+        if(res[5].startsWith("M") || res[5].startsWith("m"))
+        {
+            gen = "Male";
+        }else{
+            gen = "Female";
+        }
+
+        String year =  res[6];
+        String status = res[7];
+        String hobby = res[8];
+        
+        stud = new Student(f_name, l_name, id , dob , age, year, gen, status, hobby);
+        studentsinclass.add(stud);
+      }
+      }
+    
+
+    return studentsinclass;
+
+  }
+
+    
     
     public boolean searchID(String fileID){
          boolean check = false;
