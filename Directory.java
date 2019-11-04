@@ -1,6 +1,8 @@
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,7 +14,7 @@ import java.util.List;
 public class Directory{
     static File file = new File("Class");
     static Menu menu = new Menu();
-    static ArrayList<Student> studentsinclass = new ArrayList<Student>();
+    
 
     public void createFolder(){
         file.mkdir();
@@ -20,6 +22,7 @@ public class Directory{
 
     public ArrayList<Student> getWholeClass(int tid){
       Student stud = null;
+      ArrayList<Student> studentsinclass = new ArrayList<Student>();
     String newName = "Class/" + Integer.toString(tid) + ".txt";
     File _file = new File(newName);
     List <String> list = new ArrayList<String>();
@@ -270,4 +273,90 @@ public class Directory{
     }
 
   }
+
+  public void searchStudentForDeletion(int tid, int sid ){
+    Student stud = null;
+    String newName = "Class/" + Integer.toString(tid) + ".txt";
+    String s_id = Integer.toString(sid);
+    File _file = new File(newName);
+    List <String> list = new ArrayList<String>();
+    boolean exist = false;
+    if(file.exists()){
+        try{
+
+          list = Files.readAllLines(_file.toPath(), Charset.defaultCharset());
+
+        }catch(IOException e){
+          e.printStackTrace();
+        }
+        if(list.isEmpty()){
+            return;
+        }
+    }
+
+    for(String line: list){
+        String res[] = line.split("\\s+");
+        String gen = "";
+        if(res[0].equals(s_id)){
+        int id = Integer.parseInt(res[0]);
+        int age = Integer.parseInt(res[4]);
+        
+        if(res[5].startsWith("M") || res[5].startsWith("m"))
+        {
+            gen = "Male";
+        }else{
+            gen = "Female";
+        }
+        
+        stud = new Student(res[1], res[2], id, res[3], age, res[6], gen, res[7], res[8]);
+        exist = true;
+        break;
+      }
+    }
+
+    if(exist){
+      System.out.println(stud);
+    deleteStudent(tid, stud);
+    }
+
+  }
+
+  public void deleteStudent(int tid, Student deleteStu){
+    
+
+try{
+  String newName = "Class/" + Integer.toString(tid) + ".txt";
+
+    File inputFile = new File(newName);
+    File tempFile = new File("Class/myTempFile.txt");
+BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+String lineToRemove = deleteStu.id + " " + deleteStu.fname + " " + deleteStu.lname + " " + deleteStu.dob
++ " " + deleteStu.age + " " + deleteStu.gender + " " + deleteStu.year + " " + deleteStu.status + " " + deleteStu.hobby;
+
+String currentLine;
+
+while((currentLine = reader.readLine()) != null) {
+    // trim newline when comparing with lineToRemove
+    String trimmedLine = currentLine.trim();
+    if(trimmedLine.equals(lineToRemove)) continue;
+    writer.write(currentLine + System.getProperty("line.separator"));
+}
+writer.close(); 
+reader.close(); 
+
+
+inputFile.delete();
+boolean rename = tempFile.renameTo(inputFile);
+System.out.println(rename);
+
+  System.out.println("I think it worked");
+
+}catch(IOException E){
+  E.printStackTrace();
+}
+  }
+
+  
 }

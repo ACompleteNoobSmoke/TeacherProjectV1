@@ -66,6 +66,8 @@ public class Menu{
             login();
             break;
 
+            case 3: System.out.println("Program Closed!"); System.exit(0);
+
         default:
             System.err.println("Action Not Recognized!!!\n");
             mainmenu();
@@ -180,14 +182,7 @@ public class Menu{
 
     public void menu(Teach teacher){
          int a = 0;
-         ArrayList<Student> wholeClass = direct.getWholeClass(teacher.getID());
-         if(wholeClass.isEmpty()){
-             System.out.println("Empty");
-         }else{
-            for(Student p : wholeClass){
-                System.out.println(p.printAll());
-            }
-         }
+         
         
         while(a <1 || a > 5){
         try{
@@ -215,24 +210,39 @@ public class Menu{
 
             case 3: int choice = 0;
             System.out.println("\n\n");
-            String check = direct.searchStudent(teacher.getID(), studentid(teacher.getID()));
+            int sid = studentid(teacher.getID());
+            String check = direct.searchStudent(teacher.getID(), sid);
             System.out.println(check);
             if(check.equals("STUDENT INFORMATION DOES NOT EXIST!")){
                 clearScreen();
                 menu(teacher);
-                
                 }
             while(choice != 1 && choice != 2){
             System.out.print("\n**Option**\n1. Delete Student Information\n2. Cancel\n\nAction: ");
             choice = scan.nextInt(); scan.nextLine();
                 if(choice == 1){
-
+                    direct.searchStudentForDeletion(teacher.getID(), sid);
                 }else if(choice == 2){
                     menu(teacher);
                     break;
                  }
              }
             break;
+
+            case 4: System.out.println("***Student List***\n");
+                    System.out.println("Professor: " + teacher.getFirst().concat(" " + teacher.getLast()));
+                    System.out.println("ID: " + teacher.getID());  System.out.println();
+                    
+                   ArrayList<Student> wholeClass = direct.getWholeClass(teacher.getID());
+                    if(wholeClass.isEmpty()){
+                        System.out.println("No Student Enrolled!\n");
+                    }else{
+                       for(Student p : wholeClass){
+                           System.out.println(p.printAll());
+                       }
+                    }
+
+                    System.out.println("\nPress Anything To Continue"); scan.nextLine(); menu(teacher); break;
 
              case 5: System.out.println("\nGoodbye " + (teacher.getGenderString().equalsIgnoreCase("Male") ? "Mr. " : "Mrs. ") + teacher.getLast() + "\n");
                      mainmenu(); break;
