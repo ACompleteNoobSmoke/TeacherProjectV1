@@ -16,20 +16,12 @@ public class Menu{
     static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
     static Date date = new Date();
     
-   
-    //Clear The Screen
-    public static void clearScreen() {  
-        try{
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        } catch(Exception E){
-            System.out.println(E);
-        }
-     }  
+//#region MAIN MENU DISPLAY 
 
-    //Main Menu Page
+    //Main Menu Page -- GOOD//
     public void mainmenu(){
         boolean repeat = true;
-        direct.createFolder();
+        direct.createFolder(); //Initially creates folder to save information.
 
         int i = 0;
         while(repeat){
@@ -45,17 +37,15 @@ public class Menu{
 
         }catch(InputMismatchException e){
             scan.nextLine();
-            System.err.println("Action Not Recognized!!!\n");
+            mainmenu();
         }
 
        choice(i);
     }
 
-     
-
     }
 
-    //Switch case of options
+    //Switch case of options -- GOOD//
     public  void choice(int i){
         switch(i){
             case 1: 
@@ -74,22 +64,26 @@ public class Menu{
             break;
         }
     }
+//#endregion
+
+
 
     // Method to register new teachers
     public void regTeacher() {
         boolean sec = false;
         boolean gen2 = false;
-        String first = "";
+        String first = ""; //For Teacher First Name.
         String last = "";
         char gen;
         int id = 0;
         String id2 = "";
         boolean check = false;
 
+    
         System.out.println("\n\n****Teacher Registration****\n");
         while (first.equals("")) {
             System.out.print("Please Enter First Name: ");
-            first = scan.nextLine().trim();
+            first = scan.nextLine();
         }
 
         while (last.equals("")) {
@@ -110,17 +104,26 @@ public class Menu{
             }
         }
 
+        
         while ((id2.length()< 4 || id2.length() > 4) || check == false) {
+            try{
             System.out.println("**(Note: First Digit Has To Be Greater Than 0**)");
             System.out.print("Please Enter ID Number(####): ");
             id = scan.nextInt();
             scan.nextLine();
+        
             id2 = Integer.toString(id);
             if(id2.length() == 4){
             String fileSearch = id2 + ".txt";
-             check = direct.searchID(fileSearch);
-            }            
+             check = direct.searchID(fileSearch); //Searches folder to see if ID has been taken
+            }   
+        }catch(InputMismatchException E){
+            scan.nextLine();
+            check = false;
+        }         
+        
         }
+    
 
         int a = 0;
         while (a < 1 || a > 2) {
@@ -165,6 +168,8 @@ public class Menu{
         }
     }
 
+
+    //Teacher Login
     public static void login() {
 
         int id = 0;
@@ -179,7 +184,7 @@ public class Menu{
 
     
 
-
+    //Teacher Menu
     public void menu(Teach teacher){
          int a = 0;
          
@@ -198,6 +203,8 @@ public class Menu{
         teacherPath(a, teacher);
     }
 
+
+    //Switch cases from teacher menu that lead to different paths
     public void teacherPath(int n, Teach teacher){
         switch(n){
             case 1: System.out.println("\n\n");
@@ -222,6 +229,7 @@ public class Menu{
             choice = scan.nextInt(); scan.nextLine();
                 if(choice == 1){
                     direct.searchStudentForDeletion(teacher.getID(), sid);
+                    menu(teacher);
                 }else if(choice == 2){
                     menu(teacher);
                     break;
@@ -251,6 +259,7 @@ public class Menu{
         }
     }
 
+    //Registering new students
     public Student studentInfo(Teach teacher){
     
         String sf_name = "";
@@ -295,20 +304,48 @@ public class Menu{
             s_age = scan.nextInt(); scan.nextLine();
         }
 
-        while(!s_gender.startsWith("M") && !s_gender.startsWith("F")){
+        while((!s_gender.startsWith("M") && !s_gender.startsWith("m")) && 
+        (!s_gender.startsWith("F") && !s_gender.startsWith("f"))){
             System.out.print("Enter Student Gender(M/F): "); s_gender = scan.nextLine();
-            s_gender = s_gender.toUpperCase();
-            
+            if(s_gender.startsWith("M") || s_gender.startsWith("m")){
+                s_gender = "Male";
+            }else if(s_gender.startsWith("F") || s_gender.startsWith("f")){
+                s_gender = "Female";
         }
+    }
 
         while((!s_year.equalsIgnoreCase("Freshman")&& !s_year.equalsIgnoreCase("Sophomore")) &&
         (!s_year.equalsIgnoreCase("Junior") && !s_year.equalsIgnoreCase("Senior")) && !s_year.equalsIgnoreCase("Graduate")){
             System.out.println("(School Year Options: Freshman, Sophomore, Junior, Senior & Graduate)\n");
             System.out.print("Enter Student Year: "); s_year = scan.nextLine();
+            if(s_year.equalsIgnoreCase("freshman")){
+                s_year = "Freshman";
+                break;
+            }else if(s_year.equalsIgnoreCase("sophomore")){
+                s_year = "Sophomore";
+                break;
+            }else if(s_year.equalsIgnoreCase("junior")){
+                s_year = "Junior";
+                break;
+            }else if(s_year.equalsIgnoreCase("senior")){
+                s_year = "Senior";
+                break;
+            }else if(s_year.equalsIgnoreCase("graduate")){
+                s_year = "Graduate";
+                break;
+            }
+
         }
 
         while(!s_status.equalsIgnoreCase("Pass") && !s_status.equalsIgnoreCase("Fail")){
             System.out.print("Enter Student Status(Pass/Fail): "); s_status = scan.nextLine();
+            if(s_status.equalsIgnoreCase("pass")){
+                s_status = "Pass";
+                break;
+            }else if(s_status.equalsIgnoreCase("fail")){
+                s_status = "Fail";
+                break;
+            }
         }
 
         while(s_hobby.equals("") || s_hobby.length()>140){
@@ -333,7 +370,8 @@ public class Menu{
 
   }
 
-    public int studentid(int t_id){
+  //Method to ensure that student id is not same as the professor id
+  public int studentid(int t_id){
         int idnum = 0;
         String idstr = "";
         boolean check = false;
@@ -359,6 +397,7 @@ public class Menu{
         }
     
 
+    //Method that prints when a new teacher is saved to folders
     public void message(Teach teacher){
         System.out.println("\n       **A MESSAGE FROM PRINCIPAL LIL B THE BASEDGOD**\n");
         System.out.println("Congratulations " + ((teacher.getGenderString() == "Male") ? "Mr. " + teacher.getLast(): "Mrs. " + teacher.getLast()));

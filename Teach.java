@@ -1,9 +1,14 @@
+
+//Teacher Information Gathered Here.
 public class Teach{
-    private String f_name;
-    private String l_name;
-    private boolean gen1;
-    private String gen2;
-    private int ID;
+
+    // Made Private Because At This Point I Knew How Encapsulation Worked//
+
+    private String f_name; //Teacher First Name.
+    private String l_name; //Teajcer Last Name.
+    private boolean gen1; //Teacher Gender Toggle/Flag (Might Be The Most Useless Tool In This Program Looking Back).
+    private String gen2; //Teacher Gender String Format
+    private int ID; //Teacher ID Number
 
 
     //Modify first name information

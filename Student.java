@@ -1,21 +1,24 @@
-import java.util.Scanner;
 import java.util.ArrayList;
 
+
+//Student Information Gathered Here.
 public class Student {
 
-    static Scanner scan = new Scanner(System.in);
+    /* Made Information Public Due To The Fact -
+    - I Did Not Know How Encapsulation Worked At The Time. */
 
-    public String fname;
-    public String lname;
-    public int id;
-    public String dob;
-    public int age;
-    public String year;
-    public String gender;
-    public String status;
-    public String hobby;
+    public String fname; //Student first name.
+    public String lname; //Student last name.
+    public int id; //Student ID Number.
+    public String dob; //Student Date Of Birth.
+    public int age; //Student Age (Honestly Uneccessary But Looks Good).
+    public String year; //Student School Year.
+    public String gender; //Student Gender(Male or Female).
+    public String status; //Student Status(Passing or Failing).
+    public String hobby; //Student Hobby (Uneccessary But Adds Personality).
 
 
+    //Constructor For Student Object
     public Student(String sf_name, String sl_name, int s_id, String s_dob, int s_age,
     String s_year, String s_gender, String s_status, String s_hobby){
         this.fname = sf_name;
@@ -31,7 +34,7 @@ public class Student {
 
     
 
-
+    //Display Detailed Student Information.
     public String toString(){
         return "First Name: " + fname + "\n" +
                 "Last Name: " + lname + "\n" +
@@ -44,14 +47,11 @@ public class Student {
                 "Hobby: " + hobby + "\n";
     }
 
+
+    //Details Quick Student Information For The List Of Students
     public String printAll(){
         return id + " " + fname  + " " + lname + " " + year + " " + status;
-    }
-
-        
-     
-      
-          
+    }     
       
     }
 

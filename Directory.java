@@ -15,7 +15,7 @@ public class Directory{
     static File file = new File("Class");
     static Menu menu = new Menu();
     
-
+    //Creates Folder -- GOOD//
     public void createFolder(){
         file.mkdir();
     }
@@ -23,9 +23,9 @@ public class Directory{
     public ArrayList<Student> getWholeClass(int tid){
       Student stud = null;
       ArrayList<Student> studentsinclass = new ArrayList<Student>();
-    String newName = "Class/" + Integer.toString(tid) + ".txt";
-    File _file = new File(newName);
-    List <String> list = new ArrayList<String>();
+      String newName = "Class/" + Integer.toString(tid) + ".txt";
+      File _file = new File(newName);
+      List <String> list = new ArrayList<String>();
      
     if(file.exists()){
         try{
@@ -72,20 +72,20 @@ public class Directory{
   }
 
     
-    
+    //Security To Check If Professor Exists In Folder -- GOOD//
     public boolean searchID(String fileID){
          boolean check = false;
          File[] listoFiles = file.listFiles();
          
          for(File f: listoFiles){
              if(f.getName().equals(fileID)){
-                  check = true;
+                  check = true; //If Professor ID already exists then sets boolean to true.
              }
          }
  
          if(check){
              System.err.println("\n!!ID NUMBER ALREADY EXISTS!!\n");
-             return false;
+             return false; //Returns false to regTeacher method
          }else{
              return true;
          }
@@ -324,37 +324,60 @@ public class Directory{
   public void deleteStudent(int tid, Student deleteStu){
     
 
-try{
-  String newName = "Class/" + Integer.toString(tid) + ".txt";
+   
+  String lineToRemove = deleteStu.id + " " + deleteStu.fname + " " + deleteStu.lname + " " + deleteStu.dob
+  + " " + deleteStu.age + " " + deleteStu.gender + " " + deleteStu.year + " " + deleteStu.status + " " + deleteStu.hobby;
+  String inputFileName = "Class/" + Integer.toString(tid) + ".txt";
+String outputFileName = "Class/myTemp.txt";
+System.out.println(lineToRemove);
+// The traps any possible read/write exceptions which might occur
+try {
+    File inputFile = new File(inputFileName);
+    File outputFile = new File(outputFileName);
+    // Open the reader/writer, this ensure that's encapsulated
+    // in a try-with-resource block, automatically closing
+    // the resources regardless of how the block exists
+    try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+        // Read each line from the reader and compare it with
+        // with the line to remove and write if required
+        String line = null;
+        while ((line = reader.readLine()) != null) {
+            if (!line.equals(lineToRemove)) {
+                writer.write(line);
+                writer.newLine();
+            }
+        }
 
-    File inputFile = new File(newName);
-    File tempFile = new File("Class/myTempFile.txt");
-BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+        writer.close();
+        reader.close();
+    }
 
-String lineToRemove = deleteStu.id + " " + deleteStu.fname + " " + deleteStu.lname + " " + deleteStu.dob
-+ " " + deleteStu.age + " " + deleteStu.gender + " " + deleteStu.year + " " + deleteStu.status + " " + deleteStu.hobby;
+    // This is some magic, because of the compounding try blocks
+    // this section will only be called if the above try block
+    // exited without throwing an exception, so we're now safe
+    // to update the input file
 
-String currentLine;
+    // If you want two files at the end of his process, don't do
+    // this, this assumes you want to update and replace the 
+    // original file
 
-while((currentLine = reader.readLine()) != null) {
-    // trim newline when comparing with lineToRemove
-    String trimmedLine = currentLine.trim();
-    if(trimmedLine.equals(lineToRemove)) continue;
-    writer.write(currentLine + System.getProperty("line.separator"));
-}
-writer.close(); 
-reader.close(); 
+    // Delete the original file, you might consider renaming it
+    // to some backup file
 
-
-inputFile.delete();
-boolean rename = tempFile.renameTo(inputFile);
-System.out.println(rename);
-
-  System.out.println("I think it worked");
-
-}catch(IOException E){
-  E.printStackTrace();
+  
+    if (inputFile.delete()) {
+        // Rename the output file to the input filey
+        System.out.println("WWWW");
+        if (!outputFile.renameTo(inputFile)) {
+            throw new IOException("Could not rename " + outputFileName + " to " + inputFileName);
+        }
+    } else {
+        throw new IOException("Could not delete original input file " + inputFileName);
+    }
+} catch (IOException ex) {
+    // Handle any exceptions
+    ex.printStackTrace();
 }
   }
 
