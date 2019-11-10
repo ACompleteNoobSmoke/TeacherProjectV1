@@ -17,6 +17,7 @@ public class Student {
     public String status; //Student Status(Passing or Failing).
     public String hobby; //Student Hobby (Uneccessary But Adds Personality).
 
+    public Student(){}
 
     //Constructor For Student Object
     public Student(String sf_name, String sl_name, int s_id, String s_dob, int s_age,
@@ -47,11 +48,16 @@ public class Student {
                 "Hobby: " + hobby + "\n";
     }
 
+    public void header(){
+        String n = String.format("%7s %9s %15s %15s %10s %10s %10s", "ID", "|", "Name", "|", "Year", "|", "Status");
+        String lines = "__________________________________________________________________________________________";
+        System.out.println(n + "\n" + lines);
+    }
 
     //Details Quick Student Information For The List Of Students
     public String printAll(){
-        return id + " " + fname  + " " + lname + " " + year + " " + status;
+        return String.format("%8s %8s %20s %10s %13s %7s %9s",   id, "|", fname.concat(" " + lname), "|", year, "|", status);
     }     
       
-    }
+}
 

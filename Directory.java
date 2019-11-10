@@ -126,6 +126,7 @@ public class Directory{
             test(stringid, id);
         }else{
             System.err.println("ID Not Recognized");
+            menu.mainmenu();
         
     }
   }
@@ -329,7 +330,7 @@ public class Directory{
   + " " + deleteStu.age + " " + deleteStu.gender + " " + deleteStu.year + " " + deleteStu.status + " " + deleteStu.hobby;
   String inputFileName = "Class/" + Integer.toString(tid) + ".txt";
 String outputFileName = "Class/myTemp.txt";
-System.out.println(lineToRemove);
+ 
 // The traps any possible read/write exceptions which might occur
 try {
     File inputFile = new File(inputFileName);
@@ -368,7 +369,7 @@ try {
   
     if (inputFile.delete()) {
         // Rename the output file to the input filey
-        System.out.println("WWWW");
+        System.out.println(deleteStu.fname.concat(" " + deleteStu.lname) + " Has Been Deleted\n");
         if (!outputFile.renameTo(inputFile)) {
             throw new IOException("Could not rename " + outputFileName + " to " + inputFileName);
         }

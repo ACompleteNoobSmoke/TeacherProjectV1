@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.sql.Time;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,6 +16,7 @@ public class Menu{
     static Directory direct = new Directory();
     static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
     static Date date = new Date();
+    static Menu menu = new Menu();
     
 //#region MAIN MENU DISPLAY 
 
@@ -68,29 +70,34 @@ public class Menu{
 
 
 
-    // Method to register new teachers
+
+    // Method To Register New Teacher Information -- GOOD//
     public void regTeacher() {
-        boolean sec = false;
-        boolean gen2 = false;
+        boolean sec = false; //Toggle For Gender Question.
+        boolean gen2 = false; //For Teacher Gender Flag (Kind Of Unnecessary).
         String first = ""; //For Teacher First Name.
-        String last = "";
-        char gen;
-        int id = 0;
-        String id2 = "";
-        boolean check = false;
+        String last = ""; //For Teacher Last Name.
+        char gen; //Same As Gen2.
+        int id = 0; //For Teacher ID Number.
+        String id2 = ""; //Changes ID Number Into A String.
+        boolean check = false; //Use To Flag If Teacher ID Exists Already.
 
     
         System.out.println("\n\n****Teacher Registration****\n");
+
+        //Gets Teacher First Name.
         while (first.equals("")) {
             System.out.print("Please Enter First Name: ");
             first = scan.nextLine();
         }
 
+        //Gets Teacher Last Name.
         while (last.equals("")) {
             System.out.print("Please Enter Last Name: ");
             last = scan.nextLine();
         }
 
+        //Gets Teacher Gender.
         while (!sec) {
             System.out.print("Please Enter Gender(M/F): ");
             gen = scan.next().charAt(0);
@@ -105,6 +112,7 @@ public class Menu{
         }
 
         
+        //Gets Teacher ID Number
         while ((id2.length()< 4 || id2.length() > 4) || check == false) {
             try{
             System.out.println("**(Note: First Digit Has To Be Greater Than 0**)");
@@ -125,6 +133,7 @@ public class Menu{
         }
     
 
+        //Option To Save Teacher Information Or Cancel & Get Sent Back To Menu
         int a = 0;
         while (a < 1 || a > 2) {
             try {
@@ -141,7 +150,7 @@ public class Menu{
             }
 
             switch (a) {
-            case 1:
+            case 1:   //Saves Teacher Information
                 teacher.setFirst(first);
                 teacher.setLast(last);
                 if (gen2 == true) {
@@ -153,7 +162,7 @@ public class Menu{
                 }
                 teacher.setID(id);
                 try {
-                    direct.createFile(teacher);
+                    direct.createFile(teacher); //Creates A File In The Folder To Store Teacher Information
                 } catch (IOException e) {
                     System.out.println("Error Occured\n");
                     regTeacher();
@@ -169,22 +178,28 @@ public class Menu{
     }
 
 
-    //Teacher Login
+    //Teacher Login -- GOOD//
     public static void login() {
 
-        int id = 0;
+        int id = 0; 
         System.out.println("\n\n****LOGIN****\n");
         while(id <1000 || id > 9999){
+            try{
         System.out.print("Enter ID(####): "); 
         id = scan.nextInt(); scan.nextLine();
+        direct.searchFiles(id); //Searches Folder To See If Teacher File Exists.
+        }catch(InputMismatchException E){
+        scan.nextLine();
+        login();
+        }
         }
 
-        direct.searchFiles(id);
+        
     }
 
     
 
-    //Teacher Menu
+    //Teacher Menu -- GOOD//
     public void menu(Teach teacher){
          int a = 0;
          
@@ -204,104 +219,137 @@ public class Menu{
     }
 
 
-    //Switch cases from teacher menu that lead to different paths
+    //Switch Cases From Teacher Menu That Lead To Different Paths
     public void teacherPath(int n, Teach teacher){
         switch(n){
-            case 1: System.out.println("\n\n");
+            case 1: //Path To Enter Student Information That Will Be Saved In File
+            System.out.println("\n\n");
             direct.enterNames(teacher, studentInfo(teacher)); menu(teacher); break;
 
-            case 2: System.out.println("\n\n");
-            System.out.println(direct.searchStudent(teacher.getID(), studentid(teacher.getID())));
+            case 2: //Path To Search For Student Based On ID Entered 
+            System.out.println("\n\n");
+            System.out.println(direct.searchStudent(teacher.getID(), studentid(teacher.getID()))); //Display Student Information
             System.out.println("\nPress Anything To Exit\n"); scan.nextLine(); menu(teacher);
             break;
 
-            case 3: int choice = 0;
+            case 3: //Path To Search For Student For Deletion
+            int choice = 0;
             System.out.println("\n\n");
             int sid = studentid(teacher.getID());
-            String check = direct.searchStudent(teacher.getID(), sid);
-            System.out.println(check);
+            String check = direct.searchStudent(teacher.getID(), sid); //Returns Student Information
+            System.out.println(check); //Prints Student Information
             if(check.equals("STUDENT INFORMATION DOES NOT EXIST!")){
-                clearScreen();
-                menu(teacher);
+                menu(teacher);//If Student Information Does Not Exist Returns Back To Menu
                 }
             while(choice != 1 && choice != 2){
+                try{
             System.out.print("\n**Option**\n1. Delete Student Information\n2. Cancel\n\nAction: ");
             choice = scan.nextInt(); scan.nextLine();
                 if(choice == 1){
-                    direct.searchStudentForDeletion(teacher.getID(), sid);
+                    direct.searchStudentForDeletion(teacher.getID(), sid); //Searches For Student To Delete
                     menu(teacher);
                 }else if(choice == 2){
                     menu(teacher);
                     break;
                  }
+                }catch(InputMismatchException E){
+                    scan.nextLine();
+                }
              }
             break;
 
-            case 4: System.out.println("***Student List***\n");
+            case 4: //Display List Of Students Saved In Teacher File
+                    System.out.println("***Student List***\n");
                     System.out.println("Professor: " + teacher.getFirst().concat(" " + teacher.getLast()));
                     System.out.println("ID: " + teacher.getID());  System.out.println();
                     
-                   ArrayList<Student> wholeClass = direct.getWholeClass(teacher.getID());
+                   ArrayList<Student> wholeClass = direct.getWholeClass(teacher.getID()); //Gathers Array Of Students From File
                     if(wholeClass.isEmpty()){
-                        System.out.println("No Student Enrolled!\n");
+                        System.out.println("No Student Enrolled!\n"); //If File Is Empty Display This
                     }else{
+                        Student print = new Student();
+                        print.header();
                        for(Student p : wholeClass){
-                           System.out.println(p.printAll());
+                           System.out.println(p.printAll()); //If Not Empty Then Display List
                        }
                     }
 
                     System.out.println("\nPress Anything To Continue"); scan.nextLine(); menu(teacher); break;
 
-             case 5: System.out.println("\nGoodbye " + (teacher.getGenderString().equalsIgnoreCase("Male") ? "Mr. " : "Mrs. ") + teacher.getLast() + "\n");
+             case 5: //Logging Out 
+                    System.out.println("\nGoodbye " + (teacher.getGenderString().equalsIgnoreCase("Male") ? "Mr. " : "Mrs. ") + teacher.getLast() + "\n");
                      mainmenu(); break;
             
             default: System.out.println("\nAction Not Recognized\n"); menu(teacher);
         }
     }
 
-    //Registering new students
+    //Registering New Student
     public Student studentInfo(Teach teacher){
     
-        String sf_name = "";
-        String sl_name = "";
-        int s_id = 0;
-        String s_id2 = "";
-        String s_dob = "";
-        int s_age = 0;
-        String s_year = "";
-        String s_gender = "";
-        String s_status = "";
-        String s_hobby = "";
-        boolean check = false;
+         
+        String sf_name = "";    //Student First Name
+        String sl_name = "";    //Student Last Name
+        int s_id = 0;           //Student ID Number
+        String s_id2 = "";      //Student ID In String(Security Reasons)
+        String s_dob = "";      //Student Date Of Birth
+        int s_age = 0;          //Student Age
+        String s_year = "";     //Student Year Is School
+        String s_gender = "";   //Student Gender
+        String s_status = "";   //Student Status(Passing/Failing)
+        String s_hobby = "";    //Student Hobby
+        boolean check = false;  //Check If Student Already Exist In File
+        dateFormat.setLenient(false);
+        boolean checkDate = false;
 
         System.out.println("***Enter Student Information***\n");
         System.out.println("Professor Name: " + teacher.getFirst().concat(" " + teacher.getLast()));
         System.out.println("ID#: " + teacher.getID() + "\n");
         
+        //Assign Student First Name
         while(sf_name.equals("")){
             System.out.print("Enter Student First Name: ");
             sf_name = scan.nextLine();
         }
 
+        //Assign Student Last Name
         while(sl_name.equals("")){
             System.out.print("Enter Student Last Name: ");
             sl_name = scan.nextLine();
         }
 
+        //Assign Student ID Number
         while((s_id2.length() < 4 || s_id2.length() > 4) || !check){
+            try{
             System.out.println("(Please ID# Should Start With Number Greater Than 0\n");
             System.out.print("Enter Student ID#: "); s_id = scan.nextInt(); scan.nextLine();
             s_id2 = Integer.toString(s_id);
             check = direct.searchStuID(teacher.getID(), s_id);
+            }catch(InputMismatchException E){
+                scan.nextLine();
+                s_id2 = " ";
+            }
         }
 
-        while(s_dob == "" ){
-            System.out.print("Enter Student DOB(dd/mm/yyyy): "); s_dob = scan.nextLine();
+        //Assign Student DOB
+        while(!checkDate){
+            try{
+            System.out.print("Enter Student DOB(mm/dd/yyyy): "); s_dob = scan.nextLine();
+            dateFormat.parse(s_dob); //Parses Date Entered To Ensure It Is The Correct Format
+            checkDate = true;
+            }catch(ParseException E){
+
+            }
         }
 
         while(s_age <= 0){
+            try{
             System.out.print("Enter Student Age: "); 
             s_age = scan.nextInt(); scan.nextLine();
+            }catch(InputMismatchException E){
+                scan.nextLine();
+                s_age = 0;
+            }
         }
 
         while((!s_gender.startsWith("M") && !s_gender.startsWith("m")) && 
@@ -354,19 +402,26 @@ public class Menu{
         }
         int op = 0;
         while(op != 1 && op != 2){
+            try{
         System.out.print("\n\nOptions:\n1. Save " + sf_name + " Information\n2. Cancel\n\nAction: "); op = scan.nextInt(); scan.nextLine();
-        }
         
-        if(op == 1){
-        Student student = new  Student(sf_name, sl_name, s_id, s_dob, s_age, 
-        s_year, s_gender, s_status, s_hobby);
-        return student;
-        }else{
+        
+        if(op == 2){ 
             Menu menu = new Menu();
-            menu.menu(teacher);
-            return null;
+            menu.menu(teacher);   
         }
         
+        
+    }catch(InputMismatchException E){
+        scan.nextLine();
+        op = 0;
+    }
+    
+}
+        
+Student student = new  Student(sf_name, sl_name, s_id, s_dob, s_age, 
+s_year, s_gender, s_status, s_hobby);
+return student;
 
   }
 
