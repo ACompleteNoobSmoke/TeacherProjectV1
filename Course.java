@@ -5,6 +5,7 @@ public class Course{
   
     public static void main(String[] args) {
         
+       menu.introduction();
        menu.mainmenu();
     }
     

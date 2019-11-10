@@ -59,9 +59,9 @@ public class Directory{
 
         String year =  res[6];
         String status = res[7];
-        String hobby = res[8];
+        String description = res[8];
         
-        stud = new Student(f_name, l_name, id , dob , age, year, gen, status, hobby);
+        stud = new Student(f_name, l_name, id , dob , age, year, gen, status, description);
         studentsinclass.add(stud);
       }
       }
@@ -175,7 +175,7 @@ public class Directory{
       BufferedWriter buff = null;
       
       String info = "\n" + stu2.id + " " + stu2.fname + " " + stu2.lname + " " + stu2.dob
-        + " " + stu2.age + " " + stu2.gender + " " + stu2.year + " " + stu2.status + " " + stu2.hobby;
+        + " " + stu2.age + " " + stu2.gender + " " + stu2.year + " " + stu2.status + " " + stu2.description;
 
 
       try{
@@ -327,7 +327,7 @@ public class Directory{
 
    
   String lineToRemove = deleteStu.id + " " + deleteStu.fname + " " + deleteStu.lname + " " + deleteStu.dob
-  + " " + deleteStu.age + " " + deleteStu.gender + " " + deleteStu.year + " " + deleteStu.status + " " + deleteStu.hobby;
+  + " " + deleteStu.age + " " + deleteStu.gender + " " + deleteStu.year + " " + deleteStu.status + " " + deleteStu.description;
   String inputFileName = "Class/" + Integer.toString(tid) + ".txt";
 String outputFileName = "Class/myTemp.txt";
  

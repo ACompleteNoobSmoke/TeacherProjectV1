@@ -15,8 +15,6 @@ public class Menu{
     static Teach teacher = new Teach();
     static Directory direct = new Directory();
     static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-    static Date date = new Date();
-    static Menu menu = new Menu();
     
 //#region MAIN MENU DISPLAY 
 
@@ -396,8 +394,8 @@ public class Menu{
             }
         }
 
-        while(s_hobby.equals("") || s_hobby.length()>140){
-            System.out.print("Enter Student Hobby: "); s_hobby = scan.nextLine();
+        while(s_hobby.equals("") || s_hobby.contains(" ")){
+            System.out.print("Describe Student In One Word: "); s_hobby = scan.nextLine();
             
         }
         int op = 0;
@@ -462,6 +460,15 @@ return student;
         System.out.println("(Press Anything To Continue)\n\n"); scan.nextLine();
 
         direct.searchFiles(teacher.getID());
+    }
+
+    public void introduction(){
+        System.out.println("                             ***Project 1: Teacher Course***\n");
+        System.out.println("Name: Omoruyi Omofonmwan\nAge: 26\nBackground: Self-Taught Java Developer\n\n");
+        System.out.println("Summary: Hello, This is the first project in the seris of projects I aim to develop using Java.");
+        System.out.println("I used different techniques in this project such as Encapsulation, String Methods,\n ArrayList, Object Creation and Writing & Reading From Files.");
+        System.out.println("\nInstructions: When it says \"Action: \" please enter number associated with the action that you wish to take.");
+        System.out.println("Any feedback would greatly appreciated. Thank You\n\n\n**Press Anything To Continue**"); scan.nextLine();
     }
 
 }

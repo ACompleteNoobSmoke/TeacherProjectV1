@@ -15,13 +15,13 @@ public class Student {
     public String year; //Student School Year.
     public String gender; //Student Gender(Male or Female).
     public String status; //Student Status(Passing or Failing).
-    public String hobby; //Student Hobby (Uneccessary But Adds Personality).
+    public String description; //Student Description (Uneccessary But Adds Personality).
 
     public Student(){}
 
     //Constructor For Student Object
     public Student(String sf_name, String sl_name, int s_id, String s_dob, int s_age,
-    String s_year, String s_gender, String s_status, String s_hobby){
+    String s_year, String s_gender, String s_status, String s_descr){
         this.fname = sf_name;
         this.lname = sl_name;
         this.id = s_id;
@@ -30,7 +30,7 @@ public class Student {
         this.year = s_year;
         this.gender = s_gender;
         this.status = s_status;
-        this.hobby = s_hobby;
+        this.description = s_descr;
     }
 
     
@@ -45,7 +45,7 @@ public class Student {
                 "Gender: " + gender + "\n" +
                 "Grade: " + year + "\n" +
                 "Status: " +  status + "\n" +
-                "Hobby: " + hobby + "\n";
+                "Description: " + description + "\n";
     }
 
     public void header(){
