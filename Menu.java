@@ -2,6 +2,10 @@ import java.io.IOException;
 import java.sql.Time;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import model.Student;
+import model.Teach;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

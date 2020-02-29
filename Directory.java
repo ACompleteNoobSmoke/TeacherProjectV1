@@ -11,6 +11,9 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Student;
+import model.Teach;
+
 public class Directory{
     static File file = new File("Class");
     static Menu menu = new Menu();

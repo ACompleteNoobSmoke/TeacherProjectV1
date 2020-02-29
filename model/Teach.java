@@ -1,13 +1,13 @@
+package model;
 
-//Teacher Information Gathered Here.
+//Teacher Information Model Gathered Here.
 public class Teach{
 
     // Made Private Because At This Point I Knew How Encapsulation Worked//
 
     private String f_name; //Teacher First Name.
-    private String l_name; //Teajcer Last Name.
-    private boolean gen1; //Teacher Gender Toggle/Flag (Might Be The Most Useless Tool In This Program Looking Back).
-    private String gen2; //Teacher Gender String Format
+    private String l_name; //Teacher Last Name.
+    private String gender; //Teacher Gender
     private int ID; //Teacher ID Number
 
 
@@ -28,20 +28,13 @@ public class Teach{
     }
 
     //Modify gender information
-    public void setGender(boolean gen1){
-        this.gen1 = gen1;
+    public void setGender(String gender) {
+    	this.gender = gender;
     }
-    public boolean getGender(){
-            return gen1;
+    public String getGender() {
+    	return gender;
     }
-
-    //Modify first name information
-    public void setGenderString(String gend){
-        this.gen2 = gend;
-    }
-    public String getGenderString(){
-            return gen2;
-    }
+ 
 
     //Modify ID information
     public void setID(int id){
@@ -52,7 +45,7 @@ public class Teach{
     }
 
     public String toString(){
-        return getFirst() + " " + getLast() + " " + getID() + " " + getGenderString() + " " + getGender();
+        return getFirst() + " " + getLast() + " " + getID() + " "  + getGender();
     }
     
 
