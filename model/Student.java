@@ -3,12 +3,14 @@ package model;
 
 
 //Student Information Model Gathered Here.
+@Entity
 public class Student {
 
   
 
     private String fname; //Student first name.
     private String lname; //Student last name.
+    @Id
     private int id; //Student ID Number.
     private String dob; //Student Date Of Birth.
     private int age; //Student Age (Honestly Unnecessary But Looks Good).

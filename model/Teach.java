@@ -1,6 +1,7 @@
 package model;
 
 //Teacher Information Model Gathered Here.
+@Entity
 public class Teach{
 
     // Made Private Because At This Point I Knew How Encapsulation Worked//
@@ -8,6 +9,7 @@ public class Teach{
     private String f_name; //Teacher First Name.
     private String l_name; //Teacher Last Name.
     private String gender; //Teacher Gender
+    @Id
     private int ID; //Teacher ID Number
 
 
