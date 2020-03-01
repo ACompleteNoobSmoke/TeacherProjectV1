@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Menu{
+public abstract class Menu{
 
     //Tools used through file
     public static Scanner scan = new Scanner(System.in);
@@ -22,7 +22,36 @@ public class Menu{
     
 //#region MAIN MENU DISPLAY 
 
+  public int MainMenu() {
+	  int choice = 0;
+	  while(choice < 1 || choice > 3) {
+		  try {
+			  System.out.println("*** Main Menu ***");
+			  System.out.println("1. Login");
+			  System.out.println("2. Register");
+			  System.out.println("3. Exit");
+			  System.out.print("Action: ");
+			  choice = scan.nextInt();
+			  scan.nextLine();
+		  }catch(InputMismatchException ex) {
+			  scan.nextLine();
+		  }
+	  } 
+	  
+	  return choice;
+  }
   
+  /*
+  
+  public void path(int choice) {
+	  switch(choice) {
+	  case 1: Login(); break;
+	  case 2: Register(); break;
+	  case 3: System.out.println("Closing Program..."); System.exit(0); scan.close();
+	  }
+  }
+  
+ 
     
 
     //Method that prints when a new teacher is saved to folders
@@ -34,7 +63,7 @@ public class Menu{
         System.out.println("Have a wonderful semester\n\nBASEDGOD OUT!\n\n");
         System.out.println("(Press Anything To Continue)\n\n"); scan.nextLine();
 
-        direct.searchFiles(teacher.getID());
+      
     }
 
     public void introduction(){
@@ -45,5 +74,7 @@ public class Menu{
         System.out.println("\nInstructions: When it says \"Action: \" please enter number associated with the action that you wish to take.");
         System.out.println("Any feedback would be greatly appreciated. Thank You\n\n\n**Press Anything To Continue**"); scan.nextLine();
     }
+    
+    */
 
 }
