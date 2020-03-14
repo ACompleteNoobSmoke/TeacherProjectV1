@@ -6,8 +6,15 @@ public class Course{
     static Methods m = new Methods();
   
     public static void main(String[] args) {
-        Teach newTeacher = m.Register();
-        d.addTeacher(newTeacher);
+    	
+    	Teach newTeacher = null;
+    	
+    	do{
+    		newTeacher = m.TeacherPath(m.MainMenu());
+    		if(newTeacher != null) {
+    		m.TeacherMenu(newTeacher);
+    		}
+    	}while(newTeacher == null);   
     }
     
 }

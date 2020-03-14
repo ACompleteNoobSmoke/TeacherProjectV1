@@ -1,32 +1,62 @@
 package model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 //Student Information Model Gathered Here.
 @Entity
+@Table(name="Students")
 public class Student {
 
   
-
+	@Column(name="Teacher_ID")
+	private int teacherid;
+	
+	@Column(name="Student_FirstName")
     private String fname; //Student first name.
+	
+	@Column(name="Student_LastName")
     private String lname; //Student last name.
+	
+	@Column(name="Student_FullName")
+    private String fullname; //Student full name.
+	
     @Id
+    @Column(name="Student_ID")
     private int id; //Student ID Number.
-    private String dob; //Student Date Of Birth.
-    private int age; //Student Age (Honestly Unnecessary But Looks Good).
-    private String year; //Student School Year.
-    private String gender; //Student Gender(Male or Female).
-    private String status; //Student Status(Passing or Failing).
-    private String hobby; //Student Hobby (Unnecessary But Adds Personality).
-
     
+    @Column(name="Student_DOB")
+    private String dob; //Student Date Of Birth.
+    
+    @Column(name="Student_Age")
+    private int age; //Student Age (Honestly Unnecessary But Looks Good).
+    
+    @Column(name="Student_Year")
+    private String year; //Student School Year.
+    
+    @Column(name="Student_Gender")
+    private String gender; //Student Gender(Male or Female).
+    
+    @Column(name="Student_Status")
+    private String status; //Student Status(Passing or Failing).
+    
+    @Column(name="Student_Hobby")
+    private String hobby; //Student Hobby (Unnecessary But Adds Personality).
+    
+    
+    //Default Constructor For JPA
+    public Student() {}
 
+  
     //Constructor For Student Object
-    public Student(String sf_name, String sl_name, int s_id, String s_dob, int s_age,
+    public Student(int teacherid,String sf_name, String sl_name, int s_id, String s_dob, int s_age,
     String s_year, String s_gender, String s_status, String s_hobby){
-        this.fname = sf_name;
+        this.teacherid = teacherid;
+    	this.fname = sf_name;
         this.lname = sl_name;
+        this.fullname = sf_name.concat(" " + sl_name);
         this.id = s_id;
         this.dob = s_dob;
         this.age = s_age;

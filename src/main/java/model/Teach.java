@@ -1,5 +1,6 @@
 package model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -11,11 +12,21 @@ public class Teach{
 
     // Made Private Because At This Point I Knew How Encapsulation Worked//
 
+	@Column(name="Teacher_FirstName")
     private String FirstName; //Teacher First Name.
+	
+	@Column(name="Teacher_LastName")
     private String LastName; //Teacher Last Name.
+	
+	@Column(name="Teacher_Gender")
     private String Gender; //Teacher Gender
+	
+	
     @Id
+    @Column(name="Teacher_ID")
     private int ID; //Teacher ID Number
+    
+    @Column(name="Teacher_Password")
     private String Password; //Teacher Password
 
 
