@@ -1,12 +1,19 @@
+package methods;
+
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+
+import gui.Menu;
 
 import model.CourseStatus;
 import model.GetSchoolYear;
 import model.Student;
-import model.Teach;
 
-public class StudentMethods {
+import repo.Directory;
+
+public class StudentMethods extends Menu {
 	
 	static Scanner scan = new Scanner(System.in);
 	static Methods meth = new Methods();
@@ -160,19 +167,13 @@ public class StudentMethods {
 			return age;
 		}
 		
-		public void searchMenu() {
-			System.out.println("*** Search Student ***");
-			System.out.println("1. Search By Student ID Number");
-			System.out.println("2. Search By Student Full Name");
-			System.out.println("3. Back");
-			System.out.print("Action: ");
-		}
 		
-		public void searchOptions(int teacherID) {
+		
+		public void searchStudents(int teacherID) {
 			int choice = 0;
 			while(choice < 1 || choice > 3) {
 				try {
-					searchMenu();
+					meth.searchMenu();
 					choice = scan.nextInt();
 				}catch(InputMismatchException e) {
 					scan.nextLine();
@@ -234,6 +235,74 @@ public class StudentMethods {
 			System.out.println("\nPress Anything To Continue");
 			scan.nextLine();
 		}
+		
+		public void viewAllStudents(int teacherID) {
+			int choice = 0;
+			ArrayList<Student> listStudent = null;
+			while(choice < 1 || choice > 5) {
+				try {
+				viewAllMenu();
+				choice = scan.nextInt();
+				}catch(InputMismatchException e) {
+					scan.nextLine();
+				}
+			}
+			scan.nextLine();
+			switch(choice) {
+			case 1: listStudent = viewAllByGender(teacherID); break;
+			case 2: listStudent = viewAllBySchoolYear(teacherID); break;
+			case 3: listStudent = viewAllByStatus(teacherID); break;
+			}
+			
+			displayAllStudents(listStudent);
+		}
+		
+		
+		 public ArrayList<Student> viewAllByGender(int teacherID){
+			  System.out.println("*** View All(Gender) ***");
+			  String getGender = meth.pickGender().toString();
+			  ArrayList<Student> getByGender = Directory.getStudentsBy(teacherID, getGender, " ", " ");
+			  
+			  return getByGender;  
+		  }
+		 
+		 
+		  public ArrayList<Student> viewAllBySchoolYear(int teacherID){
+			  System.out.println("*** View All(School Year) ***");
+			  String getSchoolYear = pickSchoolYear().toString();
+			  ArrayList<Student> getAllByYear = Directory.getStudentsBy(teacherID, " ", getSchoolYear, " ");
+			  
+			  return getAllByYear;  
+		  }
+		  
+		  public ArrayList<Student> viewAllByStatus(int teacherID){
+			  System.out.println("*** View All(Status) ***");
+			  String getStatus = pickCourseStatus().toString();
+			  ArrayList<Student> getAllByStatus = Directory.getStudentsBy(teacherID, " ", " ", getStatus);
+			  
+			  return getAllByStatus;  
+		  }
+		 
+		 public void displayAllStudents(ArrayList<Student> studentList) {
+			 System.out.println("\t\t\t*** All Student ***\n");
+			 boolean header = true;
+			 if(studentList == null) {
+				 System.out.println("No Student Is Currently Enrolled In This Course!");
+			 }else {
+				 for(Student student : studentList) {
+					 if(header) {
+						 student.header();
+						 header = false;
+					 }
+					 System.out.println(student.printAll());
+				 }
+			 }
+			 
+			System.out.println("\nPress Anything To Continue\n");
+			scan.nextLine(); 
+		 }
+		 
+		
 	
 
 }

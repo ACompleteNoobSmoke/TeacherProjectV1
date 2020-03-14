@@ -1,4 +1,6 @@
+import methods.Methods;
 import model.Teach;
+import repo.Directory;
 
 public class Course{
 

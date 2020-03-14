@@ -1,11 +1,11 @@
+package methods;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import model.CourseStatus;
+import gui.Menu;
 import model.GetGender;
-import model.GetSchoolYear;
-import model.Student;
 import model.Teach;
+import repo.Directory;
 
 public class Methods extends Menu {
 
@@ -164,8 +164,8 @@ public class Methods extends Menu {
     public void teacherOptions(int choice, Teach Teacher) {
 		switch(choice) {
 		case 1: studMethods.enterNewStudent(Teacher.getID()); break;
-		case 2: studMethods.searchOptions(Teacher.getID()); break;
-		//case 3: viewAllStudents();
+		case 2: studMethods.searchStudents(Teacher.getID()); break;
+		case 3: studMethods.viewAllStudents(Teacher.getID()); break;
 		//case 4: removeStudent();
 		case 5: 
 		}

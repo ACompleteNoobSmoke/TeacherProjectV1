@@ -1,7 +1,9 @@
+package gui;
  
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import methods.Methods;
 import model.Teach;
 
  
@@ -12,6 +14,7 @@ public class Menu{
     public static Scanner scan = new Scanner(System.in);
     static boolean check = false;
     static Teach teacher = new Teach();
+    static Methods methods = new Methods();
      
     
 //#region MAIN MENU DISPLAY 
@@ -76,6 +79,26 @@ public class Menu{
 		  }
 	  } 
   }
+  
+  public void searchMenu() {
+		System.out.println("*** Search Student ***");
+		System.out.println("1. Search By Student ID Number");
+		System.out.println("2. Search By Student Full Name");
+		System.out.println("3. Back");
+		System.out.print("Action: ");
+	}
+  
+  public void viewAllMenu() {
+	  System.out.println("*** View Options ***");
+	  System.out.println("1. View By Gender");
+	  System.out.println("2. View By School Year");
+	  System.out.println("3. View By Status");
+	  System.out.println("4. View All Students");
+	  System.out.println("5. Back");
+	  System.out.print("Action: ");
+  }
+  
+ 
   
   
   

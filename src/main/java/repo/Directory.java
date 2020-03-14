@@ -1,3 +1,6 @@
+package repo;
+import java.util.ArrayList;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -134,6 +137,28 @@ public class Directory{
 		}
 		
 		return existingStudent;
+	}
+	
+	public static ArrayList<Student> getStudentsBy(int teacherID, String gender, String schoolYear, String status) {
+		EntityManager em = EFM.createEntityManager();
+		String query = "SELECT s FROM Student s WHERE s.gender = :GENDER  OR s.year = :SCHOOLYEAR OR s.status = :STATUS AND s.teacherid = :TeacherID";
+		
+		TypedQuery<Student> tq = em.createQuery(query, Student.class);
+		tq.setParameter("GENDER", gender);
+		tq.setParameter("SCHOOLYEAR", schoolYear);
+		tq.setParameter("STATUS", status);
+		tq.setParameter("TeacherID", teacherID);
+		ArrayList<Student> existingStudents = null;
+		
+		try {
+			existingStudents = (ArrayList<Student>) tq.getResultList();
+		}catch(NoResultException ex) {
+			return null;
+		}finally {
+			em.close();
+		}
+		
+		return existingStudents;
 	}
 	
 	
