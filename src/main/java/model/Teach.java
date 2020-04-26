@@ -28,6 +28,16 @@ public class Teach{
     
     @Column(name="Teacher_Password")
     private String Password; //Teacher Password
+    
+    public Teach() {}
+    
+    public Teach(int ID, String Password, String FirstName, String LastName, String Gender) {
+    	this.ID = ID;
+    	this.Password = Password;
+    	this.FirstName = FirstName;
+    	this.LastName = LastName;
+    	this.Gender = Gender;
+    }
 
 
     //Modify first name information

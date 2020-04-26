@@ -6,6 +6,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import model.Student;
@@ -97,14 +98,15 @@ public class Directory{
 		}
 	}
 	
-	public static boolean checkStudentID(int id, int teacherID) {
+	public static boolean checkStudentID(int studentID, int teacherID) {
 		EntityManager em = EFM.createEntityManager();
-		String query = "SELECT s FROM Student s WHERE s.id = :ID AND s.teacherid = :TeacherID";
+		String query = "SELECT s FROM Student s WHERE s.id = :StudentID AND s.teacherid = :TeacherID";
 		
 		TypedQuery<Student> tq = em.createQuery(query, Student.class);
-		tq.setParameter("ID", id);
+		tq.setParameter("StudentID", studentID);
 		tq.setParameter("TeacherID", teacherID);
 		Student existingStudent = null;
+		System.out.println("JPA Check\nStudent ID: " + studentID + "\nTeacher ID: " + teacherID);
 		
 		try {
 			existingStudent = tq.getSingleResult();
@@ -117,13 +119,33 @@ public class Directory{
 		
 		return existingStudent != null;
 	}
-
-	public static Student getStudent(int teacherID, int studentID, String studentName) {
+	
+	public static Student getStudentByID(int teacherID, int studentID) {
 		EntityManager em = EFM.createEntityManager();
-		String query = "SELECT s FROM Student s WHERE s.id = :ID  OR s.fullname = :StudentName AND s.teacherid = :TeacherID";
+		String query = "SELECT s FROM Student s WHERE s.id = :ID AND s.teacherid = :TeacherID";
 		
 		TypedQuery<Student> tq = em.createQuery(query, Student.class);
 		tq.setParameter("ID", studentID);
+		tq.setParameter("TeacherID", teacherID);
+		Student existingStudent = null;
+		System.out.println("JPA\nStudent ID: " + studentID + "\nTeacher ID: " + teacherID);
+		
+		try {
+			existingStudent = tq.getSingleResult();
+		}catch(NoResultException ex) {
+			return existingStudent;
+		}finally {
+			em.close();
+		}
+		
+		return existingStudent;
+	}
+
+	public static Student getStudentByFullName(int teacherID, String studentName) {
+		EntityManager em = EFM.createEntityManager();
+		String query = "SELECT s FROM Student s WHERE s.fullname = :StudentName AND s.teacherid = :TeacherID";
+		
+		TypedQuery<Student> tq = em.createQuery(query, Student.class);
 		tq.setParameter("StudentName", studentName);
 		tq.setParameter("TeacherID", teacherID);
 		Student existingStudent = null;
@@ -159,6 +181,45 @@ public class Directory{
 		}
 		
 		return existingStudents;
+	}
+	
+	public static ArrayList<Student> getStudents(int teacherID) {
+		EntityManager em = EFM.createEntityManager();
+		String query = "SELECT s FROM Student s WHERE  s.teacherid = :TeacherID";
+		
+		TypedQuery<Student> tq = em.createQuery(query, Student.class);
+		tq.setParameter("TeacherID", teacherID);
+		ArrayList<Student> existingStudents = null;
+		
+		try {
+			existingStudents = (ArrayList<Student>) tq.getResultList();
+		}catch(NoResultException ex) {
+			return null;
+		}finally {
+			em.close();
+		}
+		
+		return existingStudents;
+	}
+	
+	public static void deleteStudent(int teacherID, int studentID) {
+		EntityManager em = EFM.createEntityManager();
+		EntityTransaction et = null;
+		Query query = em.createNativeQuery("DELETE FROM Students WHERE Teacher_ID = " + teacherID + 
+				" AND Student_ID = " + studentID);
+		
+		try {
+			
+			et = em.getTransaction();
+			et.begin();
+			query.executeUpdate(); 
+			et.commit();
+			
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			em.close();
+		}
 	}
 	
 	

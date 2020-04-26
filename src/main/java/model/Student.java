@@ -68,7 +68,37 @@ public class Student {
 
     
 
-    //Display Detailed Student Information.
+    public int getTeacherid() {
+		return teacherid;
+	}
+
+
+	public String getFname() {
+		return fname;
+	}
+
+
+	public String getLname() {
+		return lname;
+	}
+
+
+	public String getFullname() {
+		return fullname;
+	}
+
+
+	public int getId() {
+		return id;
+	}
+
+
+	public String getYear() {
+		return year;
+	}
+
+
+	//Display Detailed Student Information.
     public String toString(){
         return "First Name: " + fname + "\n" +
                 "Last Name: " + lname + "\n" +
