@@ -181,6 +181,16 @@ public class InputMethods {
 		 return hobby;
 	 }
 	 
+	 public static int getInt() {
+		 int newInt = 0;
+		 try {
+			 newInt = scan.nextInt();
+		 }catch(InputMismatchException e) {
+		 }
+		 
+		 return newInt;
+	 }
+	 
 	
 	
 

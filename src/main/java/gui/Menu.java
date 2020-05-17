@@ -108,6 +108,7 @@ public class Menu{
 	  System.out.println("3. View");
 	  System.out.println("4. ReAssign");
 	  System.out.println("5. Delete");
+	  System.out.println("6. Log Out");
 	  System.out.print("\nAction: ");
   }
   

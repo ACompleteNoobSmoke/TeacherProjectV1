@@ -21,8 +21,9 @@ public class Methods extends Menu {
     	return choice;	
     }
       
-    public Teach teacherPath(int choice) {
+    public Teach teacherPath() {
     	Teach newTeacher = null;
+    	int choice = mainMenu();
     	switch(choice) {
     	case 1: newTeacher = login();
     			break;
@@ -80,7 +81,7 @@ public class Methods extends Menu {
     }
     
     
-    public void teacherMenu(Teach Teacher) {
+    public int teacherMenu(Teach Teacher) {
   	  int choice = 0;
   	  String title = Teacher.getGender().equalsIgnoreCase("male") ? "Mr. " : "Mrs. ";
   	  
@@ -90,22 +91,24 @@ public class Methods extends Menu {
   		choice = InputMethods.getChoice();  
   	  } 
   	  
-  	  if(choice >= 1 && choice < 5) {
-  		  teacherOptions(choice, Teacher);
-  	  }
+  	  return choice;
   	  
     }
+       
     
-    
-    
-    public void teacherOptions(int choice, Teach Teacher) {
+    public Teach teacherOptions(Teach Teacher) {
+    	int choice = teacherMenu(Teacher);
+    	while(choice < 5) {
 		switch(choice) {
 		case 1: studMethods.enterNewStudent(Teacher.getID()); break;
 		case 2: studMethods.searchStudents(Teacher.getID()); break;
 		case 3: studMethods.viewAllStudents(Teacher.getID()); break;
 		case 4: studMethods.removeStudent(Teacher.getID()); break;
-		}
-		teacherMenu(Teacher);	
+		}	
+		choice = teacherMenu(Teacher);
+      }
+    	System.out.println("Logging Out...\n"); return null;
+    	
 	}
     
    

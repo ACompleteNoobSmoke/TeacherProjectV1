@@ -8,12 +8,10 @@ public class Course{
     static Methods m = new Methods();
   
     public static void main(String[] args) {
-    	int choices;
     	Teach newTeacher = null;
-    	while(true) {
-    		choices = m.mainMenu();
-    		newTeacher = m.teacherPath(choices);
-    		m.teacherMenu(newTeacher);
+    	while(newTeacher == null) {
+    		newTeacher = m.teacherPath();
+    		newTeacher = m.teacherOptions(newTeacher);
     	}
     } 
 }
