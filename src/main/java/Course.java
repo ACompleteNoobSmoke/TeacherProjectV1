@@ -11,7 +11,9 @@ public class Course{
     	Teach newTeacher = null;
     	while(newTeacher == null) {
     		newTeacher = m.teacherPath();
+    		if(newTeacher != null) {
     		newTeacher = m.teacherOptions(newTeacher);
+    		}
     	}
     } 
 }

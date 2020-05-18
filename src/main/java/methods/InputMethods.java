@@ -186,6 +186,7 @@ public class InputMethods {
 		 try {
 			 newInt = scan.nextInt();
 		 }catch(InputMismatchException e) {
+			 scan.nextLine();
 		 }
 		 
 		 return newInt;

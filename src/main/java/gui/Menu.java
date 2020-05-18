@@ -128,6 +128,14 @@ public class Menu{
 	  System.out.print("\nAction: ");
   }
   
+  public void principalSearchOptionsDisplay(int choice) {
+	  System.out.printf("*** Search %s ***", choice == 1 ? "Teacher": "Student");
+	  System.out.println("1. Search By ID Number");
+	  System.out.println("2. Search By Full Name");
+	  System.out.println("3. Back");
+	  System.out.print("\nAction: ");
+  }
+  
   public void principalViewAllDisplay() {
 	  System.out.println("*** View Option ***");
 	  System.out.println("1. View All Teacher");

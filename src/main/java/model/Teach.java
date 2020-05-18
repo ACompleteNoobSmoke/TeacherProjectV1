@@ -84,6 +84,24 @@ public class Teach{
         return getFirst() + " " + getLast() + " " + getID() + " "  + getGender();
     }
     
+    public String searchString() {
+    	return "First Name: " + FirstName + "\n" +
+    		   "Last Name: " + LastName + "\n" +
+    		   "ID Number: " + ID + "\n" + 
+    		   "Gender: " + Gender + "\n";
+    }
+    
+    public void header(){
+        String n = String.format("%7s %9s %15s %15s %10s %10s %10s", "ID", "|", "Name", "|", "Password", "|", "Gender");
+        String lines = "__________________________________________________________________________________________";
+        System.out.println(n + "\n" + lines);
+    }
+
+    //Details Quick Student Information For The List Of Students
+    public String printAll(){
+        return String.format("%8s %8s %20s %10s %13s %7s %9s",   ID, "|", FirstName.concat(" " + LastName), "|", Password, "|", Gender);
+    }
+    
 
     
 }

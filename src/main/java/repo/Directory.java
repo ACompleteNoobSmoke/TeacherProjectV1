@@ -78,6 +78,64 @@ public class Directory{
 		return teacher;
 	}
 	
+	public static Teach searchTeacherID(int id) {
+		EntityManager em = EFM.createEntityManager();
+		String query = "SELECT t FROM Teach t WHERE t.ID = :ID";
+		
+		TypedQuery<Teach> tq = em.createQuery(query, Teach.class);
+		tq.setParameter("ID", id);
+		Teach teacher = null;
+		
+		try {
+			teacher = tq.getSingleResult();
+		}catch(NoResultException ex) {
+			
+			return null;
+		}finally {
+			em.close();
+		}
+		
+		return teacher;
+	}
+	
+	public static Teach searchTeacherName(String firstName, String lastName) {
+		EntityManager em = EFM.createEntityManager();
+		String query = "SELECT t FROM Teach t WHERE t.FirstName  = :firstName AND t.LastName = :lastName";
+		
+		TypedQuery<Teach> tq = em.createQuery(query, Teach.class);
+		tq.setParameter("firstName", firstName);
+		tq.setParameter("lastName", lastName);
+		Teach teacher = null;
+		
+		try {
+			teacher = tq.getSingleResult();
+		}catch(NoResultException ex) {
+			return null;
+		}finally {
+			em.close();
+		}
+		
+		return teacher;
+	}
+	
+	public static ArrayList<Teach> getTeachers() {
+		EntityManager em = EFM.createEntityManager();
+		String query = "SELECT t FROM Teach t";
+		
+		TypedQuery<Teach> tq = em.createQuery(query, Teach.class);
+		ArrayList<Teach> existingTeachers = null;
+		
+		try {
+			existingTeachers = (ArrayList<Teach>) tq.getResultList();
+		}catch(NoResultException ex) {
+			return null;
+		}finally {
+			em.close();
+		}
+		
+		return existingTeachers;
+	}
+	
 	public static void addStudent(Student newStudent) {
 		EntityManager em = EFM.createEntityManager();
 		EntityTransaction et = null;

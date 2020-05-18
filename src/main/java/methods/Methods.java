@@ -42,14 +42,17 @@ public class Methods extends Menu {
   	  System.out.println("*** Login ***");
   	  int log_id = InputMethods.inputID();
   	  String log_password = InputMethods.inputPassword();
-    	
-      returningTeacher = Directory.getTeacher(log_id, log_password);
-    	
-    	if(returningTeacher == null) {
+  	  
+  	  if(log_id == 9999) {
+  		PrincipalMethods pm = new PrincipalMethods();
+		pm.principalOptions();
+		return null;
+  	  }
+  	   returningTeacher = Directory.getTeacher(log_id, log_password);
+  	  if(returningTeacher == null) {
     		System.err.println("Incorrect Information!");
-    	}else if(returningTeacher.getID() == 9999) {
-    		
-    	}
+  	  }
+  	  
     	
     	return returningTeacher;
   }
