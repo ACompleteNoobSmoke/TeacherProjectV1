@@ -70,11 +70,9 @@ public class StudentMethods extends Menu {
 				studentID = InputMethods.inputID();
 			}
 			
-			System.out.println("The Teacher ID Is: " + teacherID + "\nThe Student ID Is: " + studentID);
 			
-			if(!Directory.checkStudentID(teacherID, studentID)) {
+			if(Directory.checkStudentID(teacherID, studentID)) {
 				existingStudent = Directory.getStudentByID(teacherID, studentID);
-				System.out.println("It should print out a student\n" + existingStudent.getFullname());
 			}
 			
 			return existingStudent;

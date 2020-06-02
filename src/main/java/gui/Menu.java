@@ -129,7 +129,7 @@ public class Menu{
   }
   
   public void principalSearchOptionsDisplay(int choice) {
-	  System.out.printf("*** Search %s ***", choice == 1 ? "Teacher": "Student");
+	  System.out.printf("*** Search %s ***\n", choice == 1 ? "Teacher": "Student");
 	  System.out.println("1. Search By ID Number");
 	  System.out.println("2. Search By Full Name");
 	  System.out.println("3. Back");
@@ -138,9 +138,29 @@ public class Menu{
   
   public void principalViewAllDisplay() {
 	  System.out.println("*** View Option ***");
-	  System.out.println("1. View All Teacher");
-	  System.out.println("2. View All Student");
+	  System.out.println("1. View Teachers");
+	  System.out.println("2. View Students");
 	  System.out.println("3. Back");
-	  System.out.println("\nAction: ");
+	  System.out.print("\nAction: ");
+  }
+  
+  public void principalViewTeachersDisplay() {
+	  System.out.println("*** View Teacher Option ***");
+	  System.out.println("1. View All By Gender");
+	  System.out.println("2. View All Teachers ");
+	  System.out.println("3. Back");
+	  System.out.print("\nAction: ");
+  }
+  
+  public void principalViewStudentsDisplay() {
+	  System.out.println("*** View Student Option ***");
+	  System.out.println("1. View All By Teacher");
+	  System.out.println("2. View All By Gender");
+	  System.out.println("3. View All By School Year");
+	  System.out.println("4. View All By Status");
+	  System.out.println("5. View All Students");
+	  System.out.println("6. Back");
+	  System.out.print("\nAction: ");
+	  
   }
 }

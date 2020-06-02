@@ -136,6 +136,25 @@ public class Directory{
 		return existingTeachers;
 	}
 	
+	public static ArrayList<Teach> getTeachersByGender(String gender) {
+		EntityManager em = EFM.createEntityManager();
+		String query = "SELECT t FROM Teach t WHERE t.Gender = :GENDER";
+		
+		TypedQuery<Teach> tq = em.createQuery(query, Teach.class);
+		tq.setParameter("GENDER", gender);
+		ArrayList<Teach> genderTeachers = null;
+		
+		try {
+			genderTeachers = (ArrayList<Teach>) tq.getResultList();
+		}catch(NoResultException ex) {
+			return null;
+		}finally {
+			em.close();
+		}
+		
+		return genderTeachers;
+	}
+	
 	public static void addStudent(Student newStudent) {
 		EntityManager em = EFM.createEntityManager();
 		EntityTransaction et = null;
@@ -156,7 +175,7 @@ public class Directory{
 		}
 	}
 	
-	public static boolean checkStudentID(int studentID, int teacherID) {
+	public static boolean checkStudentID(int teacherID, int studentID ) {
 		EntityManager em = EFM.createEntityManager();
 		String query = "SELECT s FROM Student s WHERE s.id = :StudentID AND s.teacherid = :TeacherID";
 		
@@ -164,7 +183,6 @@ public class Directory{
 		tq.setParameter("StudentID", studentID);
 		tq.setParameter("TeacherID", teacherID);
 		Student existingStudent = null;
-		System.out.println("JPA Check\nStudent ID: " + studentID + "\nTeacher ID: " + teacherID);
 		
 		try {
 			existingStudent = tq.getSingleResult();
@@ -186,7 +204,6 @@ public class Directory{
 		tq.setParameter("ID", studentID);
 		tq.setParameter("TeacherID", teacherID);
 		Student existingStudent = null;
-		System.out.println("JPA\nStudent ID: " + studentID + "\nTeacher ID: " + teacherID);
 		
 		try {
 			existingStudent = tq.getSingleResult();
@@ -247,6 +264,81 @@ public class Directory{
 		
 		TypedQuery<Student> tq = em.createQuery(query, Student.class);
 		tq.setParameter("TeacherID", teacherID);
+		ArrayList<Student> existingStudents = null;
+		
+		try {
+			existingStudents = (ArrayList<Student>) tq.getResultList();
+		}catch(NoResultException ex) {
+			return null;
+		}finally {
+			em.close();
+		}
+		
+		return existingStudents;
+	}
+	
+	public static ArrayList<Student> getStudentsByGender(String gender) {
+		EntityManager em = EFM.createEntityManager();
+		String query = "SELECT s FROM Student s WHERE s.gender = :gender";
+		
+		TypedQuery<Student> tq = em.createQuery(query, Student.class);
+		tq.setParameter("gender", gender);
+		ArrayList<Student> existingStudents = null;
+		
+		try {
+			existingStudents = (ArrayList<Student>) tq.getResultList();
+		}catch(NoResultException ex) {
+			return null;
+		}finally {
+			em.close();
+		}
+		
+		return existingStudents;
+	}
+	
+	public static ArrayList<Student> getStudentsByYear(String year) {
+		EntityManager em = EFM.createEntityManager();
+		String query = "SELECT s FROM Student s WHERE s.year = :year";
+		
+		TypedQuery<Student> tq = em.createQuery(query, Student.class);
+		tq.setParameter("year", year);
+		ArrayList<Student> existingStudents = null;
+		
+		try {
+			existingStudents = (ArrayList<Student>) tq.getResultList();
+		}catch(NoResultException ex) {
+			return null;
+		}finally {
+			em.close();
+		}
+		
+		return existingStudents;
+	}
+	
+	public static ArrayList<Student> getStudentsByStatus(String status) {
+		EntityManager em = EFM.createEntityManager();
+		String query = "SELECT s FROM Student s WHERE s.status = :status";
+		
+		TypedQuery<Student> tq = em.createQuery(query, Student.class);
+		tq.setParameter("status", status);
+		ArrayList<Student> existingStudents = null;
+		
+		try {
+			existingStudents = (ArrayList<Student>) tq.getResultList();
+		}catch(NoResultException ex) {
+			return null;
+		}finally {
+			em.close();
+		}
+		
+		return existingStudents;
+	}
+	
+	public static ArrayList<Student> getAllStudents() {
+		EntityManager em = EFM.createEntityManager();
+		String query = "SELECT s FROM Student s";
+		
+		TypedQuery<Student> tq = em.createQuery(query, Student.class);
 		ArrayList<Student> existingStudents = null;
 		
 		try {
