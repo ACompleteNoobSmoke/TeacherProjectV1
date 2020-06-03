@@ -9,6 +9,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import CompareMethods.SortingMethods;
 import model.Student;
 import model.Teach;
 
@@ -127,6 +128,7 @@ public class Directory{
 		
 		try {
 			existingTeachers = (ArrayList<Teach>) tq.getResultList();
+			existingTeachers = SortingMethods.sortTeacherByID(existingTeachers);
 		}catch(NoResultException ex) {
 			return null;
 		}finally {
@@ -268,6 +270,7 @@ public class Directory{
 		
 		try {
 			existingStudents = (ArrayList<Student>) tq.getResultList();
+			existingStudents = SortingMethods.sortStudentByID(existingStudents);
 		}catch(NoResultException ex) {
 			return null;
 		}finally {

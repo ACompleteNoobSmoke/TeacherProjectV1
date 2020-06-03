@@ -2,6 +2,7 @@ package methods;
 
 import java.util.ArrayList;
 
+import CompareMethods.SortingMethods;
 import gui.Menu;
 import model.Student;
 import model.Teach;
@@ -300,7 +301,8 @@ public class PrincipalMethods {
 			System.out.println("No Student Assigned Yet!\n");
 			return;
 		}
-
+		
+		view = SortingMethods.sortStudentForPrincipal(view);
 		boolean header = true;
 			for(Student student : view) {
 				if(header) {
