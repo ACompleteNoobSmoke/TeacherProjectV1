@@ -163,4 +163,34 @@ public class Menu{
 	  System.out.print("\nAction: ");
 	  
   }
+  
+  public void principalReAssignDisplay() {
+	  System.out.println("*** ReAssign Option ***");
+	  System.out.println("1. ReAssign Teacher Options");
+	  System.out.println("2. ReAssign Student Options");
+	  System.out.println("2. Back");
+	  System.out.print("\nAction: ");
+  }
+  
+  public void principalReAssignTeacher() {
+	  System.out.println("*** ReAssign Options(Teachers) ***");
+	  System.out.println("1. Assign Teacher To Another Class");
+	  System.out.println("2. Switch Classes With Another Teacher");
+	  System.out.println("3. Back");
+	  System.out.print("\nAction: ");
+  }
+  
+  public void principalReAssignStudent() {
+	  System.out.println("*** ReAssign Options(Students) ***");
+	  System.out.println("1. Assign Student To Another Teacher");
+	  System.out.println("2. Back");
+	  System.out.print("\nAction: ");
+  }
+  
+  public void principalDeleteDisplay() {
+	  System.out.println("*** Delete Option ***");
+	  System.out.println("1. Delete Teacher/Course");
+	  System.out.println("2. Delete Student");
+	  System.out.print("\nAction: ");
+  }
 }

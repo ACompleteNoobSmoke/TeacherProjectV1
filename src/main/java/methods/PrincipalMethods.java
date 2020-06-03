@@ -311,8 +311,11 @@ public class PrincipalMethods {
 				}
 				System.out.println(student.printAll());
 			}
-
 	}
+	
+	public void
+	
+	
 	
 
 }
