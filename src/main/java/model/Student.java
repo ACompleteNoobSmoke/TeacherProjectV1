@@ -27,6 +27,9 @@ public class Student {
     @Column(name="Student_ID")
     private int id; //Student ID Number.
     
+   // @Column(name="Unique_ID")
+   // private int uniqueID;
+    
     @Column(name="Student_DOB")
     private String dob; //Student Date Of Birth.
     
@@ -71,6 +74,10 @@ public class Student {
     public int getTeacherid() {
 		return teacherid;
 	}
+    
+    public void setTeacherID(int teacherID) {
+    	this.teacherid = teacherID;
+    }
 
 
 	public String getFname() {
@@ -86,10 +93,18 @@ public class Student {
 	public String getFullname() {
 		return fullname;
 	}
+	
+	//public void setUnique(int teacherID, int studentID) {
+		
+	//}
 
 
 	public int getId() {
 		return id;
+	}
+	
+	public void setID(int newID) {
+		this.id = newID;
 	}
 
 

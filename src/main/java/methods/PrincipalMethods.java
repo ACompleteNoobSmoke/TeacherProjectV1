@@ -1,6 +1,7 @@
 package methods;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import CompareMethods.SortingMethods;
 import gui.Menu;
@@ -41,6 +42,7 @@ public class PrincipalMethods {
 				case 1: registerAction(); break;
 				case 2: searchAction(); break;
 				case 3: viewAction(); break;
+				case 5: deleteAction(); break;
 		 }
 		optionPicked = principalChoice();
 	  }
@@ -313,7 +315,118 @@ public class PrincipalMethods {
 			}
 	}
 	
-	public void
+	public int deleteOptions() {
+		int choice = 0;
+		while(choice < 1 || choice > 3) {
+			menu.principalDeleteDisplay();
+			choice = InputMethods.getInt();
+		}
+		return choice;
+	}
+	
+	public void deleteAction() {
+		int choice = deleteOptions();
+		if(choice == 1) {
+			reassignStudents();
+		}else if(choice == 2) {
+			deleteStudent();
+		}
+	}
+	
+	
+	public void reassignStudents() {
+		int teacherID = pickTeacher();
+		boolean delete = false;
+		ArrayList<Student> studentList = sm.viewAll(teacherID);
+		if(studentList.isEmpty()) {
+			System.out.println("Course Is Currently Empty");
+			return;
+		}
+		int newTeacherID = getNewTeacherID(teacherID);
+		delete = changeStudentIDs(newTeacherID, studentList);
+		if(delete) {
+			Directory.deleteTeacher(teacherID);
+			System.out.println("\nTeacher Has Been Removed From Database\n");
+		}
+		
+	}
+	
+	public boolean changeStudentIDs(int newTeacherID, ArrayList<Student> oldList) {
+		
+		for(int i = 0; i < oldList.size(); i++) {
+			Student oldStudent = oldList.get(i);
+			int oldID = oldStudent.getId();
+			int oldTeacher = oldStudent.getTeacherid();
+			if(Directory.checkStudentID(newTeacherID, oldID)) {
+				int changeID = compareIDs(oldID, newTeacherID);
+				if(oldID == changeID) {
+					System.out.println("New Course Is Full");
+					System.out.println("Cannot Remove Teacher Until Replacemet Has Been Found!");
+					return false;
+				}
+				Directory.reAssignStudents(oldID, oldTeacher,  0);
+				Directory.changeStudentsID(oldID, changeID, 0);
+				Directory.reAssignStudents(changeID, 0,  newTeacherID);
+				Directory.deleteStudent(oldTeacher, oldID);
+				Directory.deleteStudent(0, oldID);
+				Directory.deleteStudent(0, changeID);
+			    System.out.println(oldStudent.getFullname() + " ID#: " + oldID + " New ID#: " + changeID);
+			}else {			System.out.println("ID Remains The Same");}
+		}
+		
+		return true;
+		
+	}
+	
+	public int compareIDs(int oldStudent, int newTeacherID) {
+		int id = oldStudent;
+		ArrayList<Student> newList = sm.viewAll(newTeacherID);
+		Random rand = new Random();
+		int c = 1;
+		while(c == 1) {
+			c = 0;
+			for(Student student : newList) {
+				if(id == student.getId()) {
+					id = rand.nextInt(9999);
+					c = 1;
+				}
+			}
+			if(c == 0) {
+				return id;
+			}
+		}
+		
+		return id;
+	}
+	
+	public int getNewTeacherID(int teacherID) {
+		int newTeacher = teacherID;
+		System.out.println("***ReAssign Students ***");
+		while(newTeacher == teacherID) {
+			newTeacher = pickTeacher();
+		}
+		return newTeacher;
+	}
+	
+	public void deleteStudent() {
+		boolean found = false;
+		int teacherID = pickTeacher();
+		int studentID = 0;
+		ArrayList<Student> studentClass = sm.viewAll(teacherID);
+		if(studentClass.isEmpty()) {
+			System.out.println("Class Is Currently Empty");
+			return;
+		}
+		while(!found) {
+		viewStudentsPage(studentClass);
+		System.out.print("Enter Student ID: ");
+		studentID = InputMethods.getInt();
+		found = Directory.checkStudentID(teacherID, studentID);
+		}
+		
+		Directory.deleteStudent(teacherID, studentID);
+		
+	}
 	
 	
 	

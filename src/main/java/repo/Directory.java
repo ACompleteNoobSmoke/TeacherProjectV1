@@ -8,7 +8,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-
 import CompareMethods.SortingMethods;
 import model.Student;
 import model.Teach;
@@ -369,6 +368,76 @@ public class Directory{
 			et.commit();
 			
 		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			em.close();
+		}
+	}
+	
+	public static void deleteTeacher(int teacherID) {
+		EntityManager em = EFM.createEntityManager();
+		EntityTransaction et = null;
+		Query query = em.createNativeQuery("DELETE FROM Teachers WHERE Teacher_ID = " + teacherID);
+		
+		try {
+			
+			et = em.getTransaction();
+			et.begin();
+			query.executeUpdate(); 
+			et.commit();
+			
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			em.close();
+		}
+	}
+	
+	public static void reAssignStudents(int oldID, int teacherID, int newTeacherID) {
+		EntityManager em = EFM.createEntityManager();
+		EntityTransaction et = null;
+		Student stud = null;
+		
+		try {
+			et = em.getTransaction();
+			et.begin();
+			
+			stud = getStudentByID(teacherID, oldID);
+			stud.setTeacherID(newTeacherID);
+			
+			em.persist(stud);
+			et.commit();
+		}catch(Exception ex) {
+			if(et != null) {
+				et.rollback();
+			}
+			
+			ex.printStackTrace();
+		}finally {
+			em.close();
+		}
+	}
+	
+	public static void changeStudentsID(int oldID, int newID, int teacherID) {
+		EntityManager em = EFM.createEntityManager();
+		EntityTransaction et = null;
+		Student stud = null;
+		
+		try {
+			et = em.getTransaction();
+			et.begin();
+			//cust = em.find(Customer.class, id);
+			stud = getStudentByID(teacherID, oldID);
+			//cust.setfName(fname);
+			stud.setID(newID);
+			
+			em.persist(stud);
+			et.commit();
+		}catch(Exception ex) {
+			if(et != null) {
+				et.rollback();
+			}
+			
 			ex.printStackTrace();
 		}finally {
 			em.close();
