@@ -185,6 +185,7 @@ public class InputMethods {
 		 int newInt = 0;
 		 try {
 			 newInt = scan.nextInt();
+			 scan.nextLine();
 		 }catch(InputMismatchException e) {
 			 scan.nextLine();
 		 }
