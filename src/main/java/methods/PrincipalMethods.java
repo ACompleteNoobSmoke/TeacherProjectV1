@@ -18,7 +18,7 @@ public class PrincipalMethods {
 	
 	public int principalChoice() {
 		int pick = 0;
-		while(pick <= 0 || pick > 6) {
+		while(pick <= 0 || pick > 5) {
 			menu.principalMenuDisplay();
 			pick = InputMethods.getInt();
 		}
@@ -37,12 +37,12 @@ public class PrincipalMethods {
 	
 	public void principalOptions() {
 		int optionPicked = principalChoice();
-		while(optionPicked > 0 && optionPicked < 6) {
+		while(optionPicked > 0 && optionPicked < 5) {
 		  switch(optionPicked) {
 				case 1: registerAction(); break;
 				case 2: searchAction(); break;
 				case 3: viewAction(); break;
-				case 5: deleteAction(); break;
+				case 4: deleteAction(); break;
 		 }
 		optionPicked = principalChoice();
 	  }
@@ -348,7 +348,6 @@ public class PrincipalMethods {
 			Directory.deleteTeacher(teacherID);
 			System.out.println("\nTeacher Has Been Removed From Database\n");
 		}
-		
 	}
 	
 	public boolean changeStudentIDs(int newTeacherID, ArrayList<Student> oldList) {
@@ -364,18 +363,22 @@ public class PrincipalMethods {
 					System.out.println("Cannot Remove Teacher Until Replacemet Has Been Found!");
 					return false;
 				}
-				Directory.reAssignStudents(oldID, oldTeacher,  0);
-				Directory.changeStudentsID(oldID, changeID, 0);
-				Directory.reAssignStudents(changeID, 0,  newTeacherID);
-				Directory.deleteStudent(oldTeacher, oldID);
-				Directory.deleteStudent(0, oldID);
-				Directory.deleteStudent(0, changeID);
+				directoryMethod(oldID, changeID, oldTeacher, newTeacherID);
+				
 			    System.out.println(oldStudent.getFullname() + " ID#: " + oldID + " New ID#: " + changeID);
 			}else {			System.out.println("ID Remains The Same");}
 		}
 		
 		return true;
-		
+	}
+	
+	public void directoryMethod(int oldID, int changeID, int oldTeacher, int newTeacherID) {
+		Directory.reAssignStudents(oldID, oldTeacher,  0);
+		Directory.changeStudentsID(oldID, changeID, 0);
+		Directory.reAssignStudents(changeID, 0,  newTeacherID);
+		Directory.deleteStudent(oldTeacher, oldID);
+		Directory.deleteStudent(0, oldID);
+		Directory.deleteStudent(0, changeID);
 	}
 	
 	public int compareIDs(int oldStudent, int newTeacherID) {
