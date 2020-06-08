@@ -21,17 +21,17 @@ public class StudentMethods extends Menu {
 	 public void enterNewStudent(int teacherID) {
 	    	
 	    	int id = 0;
-	    	boolean studentIDFlag= true;
+	    	boolean studentIDFlag = false;
 	    	
 	    	System.out.println("*** Student Information ***");
 	    	
 	    	String f_name = InputMethods.inputStudentFirstName();
 	    	String l_name = InputMethods.inputLastName();
 	    	
-	    	while(studentIDFlag) {
+	    	while(!studentIDFlag) {
 	    		id = InputMethods.inputID();		
 	    		System.err.println((studentIDFlag = Directory.checkStudentID(id, teacherID))  ?
-	    					" \nStudent ID# Already Exist!!\n": " ");
+	    					" ": " \nStudent ID# Already Exist!!\n ");
 	    	}
 	    	
 	    	String dob = InputMethods.inputDOB();
@@ -202,8 +202,6 @@ public class StudentMethods extends Menu {
 					foundStudent = searchStudentByFullName(teacherID);
 					removeOptions(teacherID, foundStudent);
 				}	
-				
-				
 		 }
 		 
 		 public void  removeOptions(int teacherID, Student foundStudent) {	 
