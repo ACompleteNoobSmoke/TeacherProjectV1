@@ -106,9 +106,8 @@ public class Menu{
 	  System.out.println("1. Register");
 	  System.out.println("2. Search");
 	  System.out.println("3. View");
-	  System.out.println("4. ReAssign");
-	  System.out.println("5. Delete");
-	  System.out.println("6. Log Out");
+	  System.out.println("4. Delete");
+	  System.out.println("5. Log Out");
 	  System.out.print("\nAction: ");
   }
   
@@ -167,7 +166,7 @@ public class Menu{
   
   public void principalDeleteDisplay() {
 	  System.out.println("*** Delete Option ***");
-	  System.out.println("1. Delete Teacher/Course");
+	  System.out.println("1. Delete Teacher");
 	  System.out.println("2. Delete Student");
 	  System.out.println("3. Back");
 	  System.out.print("\nAction: ");
